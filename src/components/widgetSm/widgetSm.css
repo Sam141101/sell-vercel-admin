@@ -1,61 +1,65 @@
-.widgetSm{
-    flex: 1;
+.widgetSm {
     -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
     padding: 20px;
+    width: 30%;
     margin-right: 20px;
 }
 
-.widgetSmTitle{
-    font-size: 22px;
-    font-weight: 600;
+.widgetSmTitle {
+    font-size: 20px;
+    font-weight: 500;
 }
 
-.widgetSmImg{
+.widgetSmImg {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.widgetSmList{
+.widgetSmList {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.widgetSmListItem{
+.widgetSmListItem {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 0px;
+    padding: 10px 0px;
 }
 
-.widgetSmUser{
+.widgetSmUser {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
 }
 
-.widgetSmUsername{
-    font-weight: 600;
+.widgetSmUsername {
+    font-weight: 500;
+    font-size: 15px;
+    margin-left: 10px;
 }
 
-.widgetSmUserTitle{
+.widgetSmUserTitle {
     font-weight: 300;
 }
 
-.widgetSmButton{
+.widgetSmButton {
     display: flex;
     align-items: center;
-    border: none;
+    /* border: none; */
     border-radius: 10px;
+    text-decoration: none;
     padding: 7px 10px;
     background-color: #eeeef7;
     color: #555;
     cursor: pointer;
 }
 
-.widgetSmIcon{
+.widgetSmIcon {
     font-size: 16px !important;
-    margin-right: 5px;
+    /* margin-right: 5px; */
 }

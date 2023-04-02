@@ -1,58 +1,96 @@
 .widgetLg {
-  flex: 2;
-  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-  padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    padding: 20px;
+    width: 70%;
 }
 
 .widgetLgTitle {
-  font-size: 22px;
-  font-weight: 600;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .widgetLgTable {
-  width: 100%;
-  border-spacing: 20px;
+    width: 100%;
+    border-spacing: 20px;
 }
 
 .widgetLgTh {
-  text-align: left;
+    text-align: left;
 }
 
 .widgetLgUser {
-  display: flex;
-  align-items: center;
-  font-weight: 600;
+    /* display: flex;
+    align-items: center; */
+    font-weight: 500;
 }
 
 .widgetLgImg {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
 }
 
 .widgetLgDate,
 .widgetLgAmount {
-  font-weight: 300;
+    font-weight: 300;
+}
+
+.order-status .widgetLgButton {
+    /* cursor: pointer;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    min-width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px; */
+
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    /* background-color: #3bb077; */
+    color: white;
+    cursor: pointer;
+    margin-right: 20px;
 }
 
 .widgetLgButton {
-  padding: 5px 7px;
-  border: none;
-  border-radius: 10px;
+    cursor: pointer;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    min-width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
 }
 
-.widgetLgButton.approved {
-  background-color: #e5faf2;
-  color: #3bb077;
-}
-.widgetLgButton.declined {
-  background-color: #fff0f1;
-  color: #d95087;
-}
 .widgetLgButton.pending {
-  background-color: #ebf1fe;
-  color: #2a7ade;
+    background-color: #ebf1fe;
+    color: #2a7ade;
+}
+
+.widgetLgButton.accept {
+    background-color: #fff0f1;
+    color: #d95087;
+}
+
+.widgetLgButton.delivery {
+    background-color: #9ef0d1;
+    color: #9a6d2e;
+}
+
+.widgetLgButton.complete {
+    background-color: #e5faf2;
+    color: #3bb077;
+}
+
+.widgetLgButton.canceled {
+    background-color: #dee6e3;
+    color: #f20814;
 }

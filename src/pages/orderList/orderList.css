@@ -1,0 +1,15 @@
+.wait-purchase-container {
+    height: 400px;
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.total-price-order {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
