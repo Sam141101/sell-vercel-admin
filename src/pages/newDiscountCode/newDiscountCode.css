@@ -1,0 +1,89 @@
+.new-discount {
+    margin-top: 15px;
+}
+
+.add-discount-button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    min-width: 120px;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: darkblue;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-discount-form {
+    margin: 15px 0 40px 0;
+}
+
+.new-discount-type-person {
+    position: relative;
+    overflow: hidden;
+    max-height: 0;
+}
+
+.new-discount-type-person.block {
+    max-height: 100vh !important;
+    transition: max-height 0.5s;
+}
+
+.new-discount-type-person span,
+.new-discount-creat-code span {
+    color: #ff6d6d;
+    font-size: 14.5px;
+    font-weight: 500;
+    display: block;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.new-discount-check-user_id {
+    background: #c8c8c8;
+    box-shadow: none;
+    padding: 0 24px;
+    width: auto;
+    margin-left: 13px;
+    white-space: nowrap;
+    line-height: 42px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+    left: 450px;
+    top: 50%;
+    transform: translateY(-18%);
+}
+
+.new-discount-creat-code {
+    width: 250px;
+}
+
+.new-discount-creat-code span {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.new-discount-creat-code .new-discount-check-user_id {
+    position: absolute;
+    left: 300px;
+    top: 50%;
+    transform: translateY(-111%);
+}
+
+.new-discount-check-code {
+    background: #c8c8c8;
+    box-shadow: none;
+    padding: 0 24px;
+    width: auto;
+    white-space: nowrap;
+    line-height: 42px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 14px;
+    margin: 10px 0 15px 13px;
+}

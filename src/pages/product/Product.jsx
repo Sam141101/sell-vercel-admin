@@ -16,12 +16,12 @@ export default function Product() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
+    const location = useLocation();
+    const productId = location.pathname.split('/')[2];
+
     const product = useSelector((state) =>
         state.product.products.find((product) => product._id === productId),
     );
-
-    const location = useLocation();
-    const productId = location.pathname.split('/')[2];
 
     const [pStats, setPStats] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);

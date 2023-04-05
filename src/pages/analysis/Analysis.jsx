@@ -7,6 +7,7 @@ import { useMemo, useState, useEffect } from 'react';
 // import { userRequest } from "../../requestMethods";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import AnalysisOrderStatus from '../../components/AnalysisOrderStatus/AnalysisOrderStatus';
 
 export default function Analysis() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -14,49 +15,24 @@ export default function Analysis() {
 
     const [userStats, setUserStats] = useState([]);
 
-    const MONTHS = useMemo(
-        () => [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Agu',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-        ],
-        [],
-    );
-
     useEffect(() => {
         const getStats = async () => {
             try {
                 const res = await axios.get('http://localhost:5000/api/users/stats', {
                     headers: { token: `Bearer ${token}` },
                 });
-
-                res.data.map((item) =>
-                    setUserStats((prev) => [
-                        ...prev,
-                        { name: MONTHS[item._id - 1], 'Active User': item.total },
-                    ]),
-                );
             } catch (err) {}
         };
         getStats();
-    }, [token, MONTHS]);
+    }, [token]);
 
     return (
-        <div className="home">
-            <FeaturedInfo token={token} />
+        <div className="analysis">
+            {/* <FeaturedInfo token={token} /> */}
 
-            <div className="homeWidgets">
-                <WidgetSm token={token} />
-                <WidgetLg token={token} />
+            <div className="user-order-status">
+                <AnalysisOrderStatus title="complete" token={token} />
+                <AnalysisOrderStatus title="cancel" token={token} />
             </div>
         </div>
     );

@@ -12,6 +12,11 @@ import WaitForConfirmation from '../pages/orderList/WaitForConfirmation';
 import Delivering from '../pages/orderList/Delivering';
 import Complete from '../pages/orderList/Complete';
 import Canceled from '../pages/orderList/Canceled';
+import Analysis from '../pages/analysis/Analysis';
+import DiscountList from '../pages/discountList/DiscountList';
+import DefaultLayoutDiscount from '../Layout/DefaultLayoutDiscount';
+import NewDiscountCode from '../pages/newDiscountCode/NewDiscountCode';
+import Discount from '../pages/discount/Discount';
 
 const publicRoutes = [
     {
@@ -52,40 +57,66 @@ const publicRoutes = [
 
     // order
     {
-        path: '/wait-for-confirmation',
+        path: '/order/wait-for-confirmation',
         component: WaitForConfirmation,
         show1: 1,
     },
     {
-        path: '/waiting-for-the-goods',
+        path: '/order/waiting-for-the-goods',
         component: WaitingForTheGoods,
         show1: 2,
     },
 
     {
-        path: '/delivering',
+        path: '/order/delivering',
         component: Delivering,
         show1: 3,
     },
 
     {
-        path: '/complete',
+        path: '/order/complete',
         component: Complete,
         show1: 4,
     },
 
     {
-        path: '/canceled',
+        path: '/order/canceled',
         component: Canceled,
         show1: 5,
     },
 
     {
         // path: '/order',
-        path: '/order/:id',
+        path: '/order/:status/:id',
         component: Order,
         layout: null,
         // show1: 5,
+    },
+
+    {
+        path: '/analysis',
+        component: Analysis,
+        layout: null,
+    },
+
+    {
+        path: '/discount/:select',
+        component: DiscountList,
+        layout: DefaultLayoutDiscount,
+    },
+
+    {
+        path: '/new-discounts',
+        // path: '/discounts',
+        component: NewDiscountCode,
+        layout: null,
+    },
+
+    {
+        path: '/discount-code/:discountId',
+        // path: '/discounts',
+        component: Discount,
+        layout: null,
     },
 ];
 

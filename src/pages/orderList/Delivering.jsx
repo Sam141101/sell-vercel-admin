@@ -52,7 +52,7 @@ export default function Delivering() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={'/order/' + params.row._id}>
+                        <Link to={`/order/delivering/${params.row._id}`}>
                             <button className="productListEdit">Xem</button>
                         </Link>
                         <DeleteOutline
@@ -66,7 +66,17 @@ export default function Delivering() {
     ];
 
     // Action
-    const handleDelete = (id) => {};
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+                headers: { token: `Bearer ${token}` },
+            });
+            const newListDiscount = orderList.filter((item) => item._id !== id);
+            setOrderList(newListDiscount);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         const getOrders = async () => {

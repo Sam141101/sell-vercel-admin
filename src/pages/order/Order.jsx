@@ -25,7 +25,7 @@ const buttonStatus = (status) => {
 
 export default function Order() {
     const location = useLocation();
-    const orderId = location.pathname.split('/')[2];
+    const orderId = location.pathname.split('/')[3];
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
@@ -44,7 +44,7 @@ export default function Order() {
         }
         try {
             const res = await axios.put(
-                BASE_URL_API + `/find/order-${statusOrder}/` + infoOrder.user._id,
+                BASE_URL_API + `orders/find/order-${statusOrder}/` + infoOrder.user._id,
                 { orderId: infoOrder.orderList._id },
                 {
                     headers: { token: `Bearer ${token}` },
@@ -63,11 +63,15 @@ export default function Order() {
                     headers: { token: `Bearer ${token}` },
                 });
                 setInfoOrder(res.data);
-                // console.log(res.data);
-            } catch (err) {}
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
         };
         getOrder();
     }, [orderId, token]);
+
+    console.log(BASE_URL_API + 'orders/find/' + orderId);
 
     return (
         <div className="order-content">
@@ -77,32 +81,32 @@ export default function Order() {
                     <div className="info-user-order-text">
                         <div className="info-user-order-span">
                             Tên:
-                            <span>{infoOrder.user.fullname}</span>
+                            <span>{infoOrder.user?.fullname}</span>
                         </div>
                         <div className="info-user-order-span">
                             Email:
-                            <span>{infoOrder.user.email}</span>
+                            <span>{infoOrder.user?.email}</span>
                         </div>
 
                         <div className="info-user-order-span">
                             Số điện thoại:
-                            <span>{infoOrder.user.phone}</span>
+                            <span>{infoOrder.user?.phone}</span>
                         </div>
-                        {infoOrder.user.gender && (
+                        {infoOrder.user?.gender && (
                             <div className="info-user-order-span">
                                 Giới tính:
-                                <span>{infoOrder.user.gender}</span>
+                                <span>{infoOrder.user?.gender}</span>
                             </div>
                         )}
                         <div className="info-user-order-span">
                             Địa chỉ:
-                            <span>{infoOrder.user.address}</span>
+                            <span>{infoOrder.user?.address}</span>
                         </div>
                     </div>
 
                     <div className="info-user-order-frame-img">
                         <img
-                            src={infoOrder.user.img}
+                            src={infoOrder.user?.img}
                             alt="hình ảnh"
                             className="info-user-order-img"
                         />
@@ -143,16 +147,16 @@ export default function Order() {
                             <div className="wait-purchase-block-status">
                                 <span>Trạng thái:</span>
                                 <div
-                                    className={`widgetLgButton ${infoOrder.orderList.status}`}
+                                    className={`widgetLgButton ${infoOrder.orderList?.status}`}
                                 >
-                                    {infoOrder.orderList.status}
+                                    {infoOrder.orderList?.status}
                                 </div>
                             </div>
 
                             <div className="wait-purchase-total-price">
                                 Tổng số tiền:
                                 <span className="wait-purchase-total-price-text">
-                                    {infoOrder.orderList.amount}₫
+                                    {infoOrder.orderList?.amount}₫
                                 </span>
                             </div>
                         </div>
@@ -168,9 +172,9 @@ export default function Order() {
 
                             <button
                                 className="wait-purchase-cancel-order-button"
-                                onClick={() => handleClick(infoOrder.orderList.status)}
+                                onClick={() => handleClick(infoOrder.orderList?.status)}
                             >
-                                {buttonStatus(infoOrder.orderList.status)}
+                                {buttonStatus(infoOrder.orderList?.status)}
                             </button>
                         </div>
                     </div>

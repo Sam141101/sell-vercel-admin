@@ -7,43 +7,6 @@ import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
 import { DataGrid } from '@material-ui/data-grid';
 
-const list = [
-    {
-        _id: 'fafabfabfbffbajf',
-        amount: 200000,
-        method: 'paypal',
-        status: 'complete',
-    },
-
-    {
-        _id: 'fafabfabfbffbaj2',
-        amount: 200000,
-        method: 'paypal',
-        status: 'complete',
-    },
-
-    {
-        _id: 'fafabfabfbffbaj3',
-        amount: 200000,
-        method: 'paypal',
-        status: 'complete',
-    },
-
-    {
-        _id: 'fafabfabfbffbaj4',
-        amount: 200000,
-        method: 'paypal',
-        status: 'complete',
-    },
-
-    {
-        _id: 'fafabfabfbffbajf',
-        amount: 200000,
-        method: 'paypal',
-        status: 'complete',
-    },
-];
-
 export default function Complete() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
@@ -90,7 +53,7 @@ export default function Complete() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={'/order/' + params.row._id}>
+                        <Link to={`/order/complete/${params.row._id}`}>
                             <button className="productListEdit">Xem</button>
                         </Link>
                         <DeleteOutline
@@ -104,7 +67,17 @@ export default function Complete() {
     ];
 
     // Action
-    const handleDelete = (id) => {};
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+                headers: { token: `Bearer ${token}` },
+            });
+            const newListDiscount = orderList.filter((item) => item._id !== id);
+            setOrderList(newListDiscount);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         const getOrders = async () => {

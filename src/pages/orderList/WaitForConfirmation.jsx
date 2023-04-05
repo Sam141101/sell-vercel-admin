@@ -7,43 +7,6 @@ import { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
 
-const list = [
-    {
-        _id: 'fafabfabfbffbajf',
-        amount: 200000,
-        method: 'paypal',
-        status: 'pending',
-    },
-
-    {
-        _id: 'fafabfabfbffbaj2',
-        amount: 200000,
-        method: 'paypal',
-        status: 'pending',
-    },
-
-    {
-        _id: 'fafabfabfbffbaj3',
-        amount: 200000,
-        method: 'paypal',
-        status: 'pending',
-    },
-
-    {
-        _id: 'fafabfabfbffbaj4',
-        amount: 200000,
-        method: 'paypal',
-        status: 'pending',
-    },
-
-    {
-        _id: 'fafabfabfbffbajf',
-        amount: 200000,
-        method: 'paypal',
-        status: 'pending',
-    },
-];
-
 export default function WaitForConfirmation() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
@@ -92,7 +55,7 @@ export default function WaitForConfirmation() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={'/order/' + params.row._id}>
+                        <Link to={`/order/wait-for-confirmation/${params.row._id}`}>
                             <button className="productListEdit">Xem</button>
                         </Link>
                         <DeleteOutline
@@ -106,7 +69,17 @@ export default function WaitForConfirmation() {
     ];
 
     // Action
-    const handleDelete = (id) => {};
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+                headers: { token: `Bearer ${token}` },
+            });
+            const newListDiscount = orderList.filter((item) => item._id !== id);
+            setOrderList(newListDiscount);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         const getOrders = async () => {
