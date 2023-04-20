@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function WaitingForTheGoods() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -13,6 +14,10 @@ export default function WaitingForTheGoods() {
 
     const [show, setShow] = useState(false);
     const [orderList, setOrderList] = useState([]);
+
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
+
     // data grid
     const columns = [
         { field: '_id', headerName: 'ID', width: 220 },
@@ -69,7 +74,7 @@ export default function WaitingForTheGoods() {
     // Action
     const handleDelete = async (id) => {
         try {
-            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
                 headers: { token: `Bearer ${token}` },
             });
             const newListDiscount = orderList.filter((item) => item._id !== id);
@@ -82,7 +87,7 @@ export default function WaitingForTheGoods() {
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const res = await axios.get(
+                const res = await axiosJWT.get(
                     BASE_URL_API + 'orders/list-status-order/accept',
                     {
                         headers: { token: `Bearer ${token}` },

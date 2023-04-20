@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getUsers } from '../../redux/apiCalls';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function UserList() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -17,13 +18,15 @@ export default function UserList() {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users?.users);
 
+    const axiosJWT = createAxiosInstance(admin, dispatch);
+
     const handleDelete = (id) => {
-        console.log(id);
-        deleteUser(id, dispatch, token);
+        // console.log(id);
+        deleteUser(id, dispatch, token, axiosJWT);
     };
 
     useEffect(() => {
-        getUsers(dispatch, token);
+        getUsers(dispatch, token, axiosJWT);
     }, [token, dispatch]);
 
     const columns = [

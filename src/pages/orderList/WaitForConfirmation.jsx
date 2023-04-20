@@ -6,13 +6,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function WaitForConfirmation() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
+    const dispatch = useDispatch();
+
     const [show, setShow] = useState(false);
     const [orderList, setOrderList] = useState([]);
+
+    const axiosJWT = createAxiosInstance(admin, dispatch);
 
     // data grid
     const columns = [
@@ -71,7 +76,7 @@ export default function WaitForConfirmation() {
     // Action
     const handleDelete = async (id) => {
         try {
-            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
                 headers: { token: `Bearer ${token}` },
             });
             const newListDiscount = orderList.filter((item) => item._id !== id);
@@ -84,7 +89,7 @@ export default function WaitForConfirmation() {
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const res = await axios.get(
+                const res = await axiosJWT.get(
                     BASE_URL_API + 'orders/list-status-order/pending',
                     {
                         headers: { token: `Bearer ${token}` },

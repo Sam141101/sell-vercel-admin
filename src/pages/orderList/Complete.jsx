@@ -6,6 +6,7 @@ import { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
 import { DataGrid } from '@material-ui/data-grid';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function Complete() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -13,6 +14,9 @@ export default function Complete() {
 
     const [show, setShow] = useState(false);
     const [orderList, setOrderList] = useState([]);
+
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
 
     // data grid
     const columns = [
@@ -69,7 +73,7 @@ export default function Complete() {
     // Action
     const handleDelete = async (id) => {
         try {
-            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
                 headers: { token: `Bearer ${token}` },
             });
             const newListDiscount = orderList.filter((item) => item._id !== id);
@@ -82,7 +86,7 @@ export default function Complete() {
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const res = await axios.get(
+                const res = await axiosJWT.get(
                     BASE_URL_API + 'orders/list-status-order/complete',
                     {
                         headers: { token: `Bearer ${token}` },

@@ -4,16 +4,25 @@ import { useEffect, useState } from 'react';
 // import { userRequest } from "../../requestMethods";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { createAxiosInstance } from '../../useAxiosJWT';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function WidgetSm({ token }) {
+    const admin = useSelector((state) => state.user?.currentUser);
+
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/users?new=true', {
-                    headers: { token: `Bearer ${token}` },
-                });
+                const res = await axiosJWT.get(
+                    'http://localhost:5000/api/users?new=true',
+                    {
+                        headers: { token: `Bearer ${token}` },
+                    },
+                );
                 setUsers(res.data);
             } catch (err) {}
         };

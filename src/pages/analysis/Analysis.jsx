@@ -6,8 +6,9 @@ import WidgetLg from '../../components/widgetLg/WidgetLg';
 import { useMemo, useState, useEffect } from 'react';
 // import { userRequest } from "../../requestMethods";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AnalysisOrderStatus from '../../components/AnalysisOrderStatus/AnalysisOrderStatus';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function Analysis() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -15,10 +16,13 @@ export default function Analysis() {
 
     const [userStats, setUserStats] = useState([]);
 
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
+
     useEffect(() => {
         const getStats = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/users/stats', {
+                const res = await axiosJWT.get('http://localhost:5000/api/users/stats', {
                     headers: { token: `Bearer ${token}` },
                 });
             } catch (err) {}

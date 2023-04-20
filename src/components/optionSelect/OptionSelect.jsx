@@ -3,6 +3,7 @@ import './optionSelect.css';
 
 export default function OptionSelect(props) {
     const {
+        page,
         inputs,
         type,
         placeholder,
@@ -31,21 +32,21 @@ export default function OptionSelect(props) {
                             <input
                                 type="radio"
                                 name={name}
-                                id={value1}
+                                id={value1.toString()}
                                 value={value1}
-                                checked={inputs === `${value1}`}
+                                checked={page === 'change' ? inputs == value1 : null}
                                 onChange={handleChangeSelect}
                             />
-                            <label htmlFor={value1}>{text1}</label>
+                            <label htmlFor={value1.toString()}>{text1}</label>
                             <input
                                 type="radio"
                                 name={name}
-                                id={value2}
+                                id={value2.toString()}
                                 value={value2}
-                                checked={inputs === `${value2}`}
+                                checked={page === 'change' ? inputs == value2 : null}
                                 onChange={handleChangeSelect}
                             />
-                            <label htmlFor={value2}>{text2}</label>
+                            <label htmlFor={value2.toString()}>{text2}</label>
                         </div>
                     </>
                 ) : (
@@ -57,8 +58,9 @@ export default function OptionSelect(props) {
                             placeholder={placeholder}
                             onChange={handleChange}
                             className="login_input"
-                            // value={inputs}
-                            value={inputs || ''}
+                            // value={page === 'change' ? inputs || '' : null}
+                            // value={page === 'change' ? inputs || '' : ''}'
+                            value={page === 'change' ? inputs || '' : undefined}
                         />
                     </div>
                 )}

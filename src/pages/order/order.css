@@ -5,6 +5,20 @@
     margin-right: 20px;
 }
 
+.wait-purchase-size {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 5px 0;
+    display: block;
+}
+
+.wait-purchase-name {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
 .order-content-title {
     font-size: 24px;
     font-weight: 600;
@@ -79,6 +93,10 @@
     flex-direction: column;
 }
 
+.wait-for-product-right-frame {
+    margin-left: 30px;
+}
+
 .wait-for-product-right {
     width: 50%;
     background: white;
@@ -121,15 +139,34 @@
     border-bottom: 1px solid #ccc;
 }
 
+.delivery-time-list {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 19px 30px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+.delivery-time-item {
+    display: block;
+    padding: 5px 0px;
+}
+
+.delivery-time-product-order {
+    margin: 10px 0;
+}
+
 .wait-purchase-name-size {
     margin-top: 20px;
 }
 
-.wait-purchase-name-size div {
+/* .wait-purchase-name-size div {
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 500;
-}
+} */
 
 .wait-purchase-product-order:last-child {
     border-bottom: none;

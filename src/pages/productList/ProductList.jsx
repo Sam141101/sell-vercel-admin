@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, getProducts } from '../../redux/apiCalls';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function ProductList() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -15,12 +16,14 @@ export default function ProductList() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.products);
 
+    const axiosJWT = createAxiosInstance(admin, dispatch);
+
     useEffect(() => {
-        getProducts(dispatch);
+        getProducts(dispatch, axiosJWT);
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        deleteProduct(id, dispatch, token);
+        deleteProduct(id, dispatch, token, axiosJWT);
     };
 
     const columns = [

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import './newDiscountCode.css';
 import OptionSelect from '../../components/optionSelect/OptionSelect';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL_API } from '../../requestMethods';
 import Code from '../../components/Code/Code';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function NewDiscountCode() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -21,6 +22,9 @@ export default function NewDiscountCode() {
         coupon_code: '',
     });
 
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
+
     const handleChange = (e) => {
         const value = e.target.value;
         const name = e.target.name;
@@ -31,7 +35,7 @@ export default function NewDiscountCode() {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(
+            const res = await axiosJWT.post(
                 BASE_URL_API +
                     `discounts/${
                         inputs.type_user === 'person'
@@ -52,7 +56,7 @@ export default function NewDiscountCode() {
     const handleCheck = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.get(
+            const res = await axiosJWT.get(
                 BASE_URL_API + `users/check-user/${inputs.used_by}`,
                 {
                     headers: { token: `Bearer ${token}` },
@@ -68,14 +72,15 @@ export default function NewDiscountCode() {
         <div className="new-discount">
             <h1 className="addProductTitle">Mã giảm giá mới</h1>
             <form className="add-discount-form">
-                <Code
+                {/* <Code
                     type="newCode"
                     token={token}
                     setInputs={setInputs}
                     inputs={inputs}
-                />
+                /> */}
 
                 <OptionSelect
+                    page="new"
                     type="radio"
                     label="Mô tả"
                     name="descCoupon"
@@ -86,6 +91,7 @@ export default function NewDiscountCode() {
                     handleChange={handleChange}
                 />
                 <OptionSelect
+                    page="new"
                     type="radio"
                     label="Giảm giá theo"
                     name="discount_type"
@@ -105,11 +111,18 @@ export default function NewDiscountCode() {
                 />
 
                 <OptionSelect
+                    // type="number"
+                    // placeholder="Số giờ giới hạn"
+                    // label="Thời hạn sử dụng"
+                    // name="expireAt"
+                    // handleChange={handleChange}
+
                     type="number"
                     placeholder="Số giờ giới hạn"
                     label="Thời hạn sử dụng"
                     name="expireAt"
                     handleChange={handleChange}
+                    inputs={inputs.expireAt || ''} // đặt giá trị mặc định cho inputs
                 />
 
                 <OptionSelect
@@ -137,6 +150,7 @@ export default function NewDiscountCode() {
                 />
 
                 <OptionSelect
+                    page="new"
                     type="radio"
                     label="Voucher dành cho"
                     name="type_user"
@@ -149,7 +163,7 @@ export default function NewDiscountCode() {
 
                 <div
                     className={`new-discount-type-person ${
-                        inputs.type_user === 'person' ? 'block' : ''
+                        inputs.type_user && inputs.type_user === 'person' ? 'block' : ''
                     }`}
                 >
                     <OptionSelect
@@ -163,7 +177,7 @@ export default function NewDiscountCode() {
                     <button
                         className="new-discount-check-user_id"
                         style={
-                            inputs.used_by !== ''
+                            inputs.used_by && inputs.used_by !== ''
                                 ? {
                                       backgroundColor: '#338dbc',
                                       color: 'white',
@@ -178,7 +192,15 @@ export default function NewDiscountCode() {
                     {checkUser && <span>{checkUser}</span>}
                 </div>
 
+                {/* <Code
+                    check="user"
+                    token={token}
+                    handleChange={handleChange}
+                    inputs={inputs}
+                /> */}
+
                 <OptionSelect
+                    page="new"
                     type="radio"
                     label="Sử dụng 1 hay nhiều lần"
                     name="is_single_use"
@@ -186,11 +208,12 @@ export default function NewDiscountCode() {
                     text1="1 lần"
                     value2="multi_use"
                     text2="Nhiều lần"
-                    inputs={inputs.is_single_use}
+                    // inputs={inputs.is_single_use}
                     handleChange={handleChange}
                 />
 
                 <OptionSelect
+                    page="new"
                     type="radio"
                     label="Đã được sử dụng chưa"
                     name="is_redeemed"

@@ -3,10 +3,17 @@ import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
 // import { userRequest } from "../../requestMethods";
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function FeaturedInfo({ token }) {
+    const admin = useSelector((state) => state.user?.currentUser);
+
     const [income, setIncome] = useState([]);
     const [percent, setPercent] = useState(0);
+
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
 
     // useEffect(() => {
     //   const getIncome = async () => {
@@ -25,9 +32,12 @@ export default function FeaturedInfo({ token }) {
     useEffect(() => {
         const getIncome = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/orders/income', {
-                    headers: { token: `Bearer ${token}` },
-                });
+                const res = await axiosJWT.get(
+                    'http://localhost:5000/api/orders/income',
+                    {
+                        headers: { token: `Bearer ${token}` },
+                    },
+                );
 
                 setIncome(res.data);
                 setPercent(

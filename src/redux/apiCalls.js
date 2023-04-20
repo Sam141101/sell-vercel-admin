@@ -41,11 +41,11 @@ export const login = async (dispatch, user, navigate) => {
 };
 
 // ------------- User -------------
-export const getUsers = async (dispatch, token) => {
+export const getUsers = async (dispatch, token, axiosJWT) => {
     dispatch(getUserStart());
 
     try {
-        const res = await axios.get(BASE_URL_API + 'users/', {
+        const res = await axiosJWT.get(BASE_URL_API + 'users/', {
             headers: { token: `Bearer ${token}` },
         });
         dispatch(getUserSuccess(res.data));
@@ -54,11 +54,11 @@ export const getUsers = async (dispatch, token) => {
     }
 };
 
-export const updateUser = async (token, dispatch, id, update) => {
+export const updateUser = async (token, dispatch, id, update, axiosJWT) => {
     dispatch(updateUserStart());
 
     try {
-        const res = await axios.put(BASE_URL_API + `users/${id}`, update, {
+        const res = await axiosJWT.put(BASE_URL_API + `users/${id}`, update, {
             headers: { token: `Bearer ${token}` },
         });
         dispatch(updateUserSuccess(res.data));
@@ -68,11 +68,11 @@ export const updateUser = async (token, dispatch, id, update) => {
     }
 };
 
-export const deleteUser = async (id, dispatch, token) => {
+export const deleteUser = async (id, dispatch, token, axiosJWT) => {
     dispatch(deleteUserStart());
 
     try {
-        await axios.delete(BASE_URL_API + `users/${id}`, {
+        await axiosJWT.delete(BASE_URL_API + `users/${id}`, {
             headers: { token: `Bearer ${token}` },
         });
         dispatch(deleteUserSuccess(id));
@@ -82,23 +82,23 @@ export const deleteUser = async (id, dispatch, token) => {
 };
 
 // ------------- Product -------------
-export const getProducts = async (dispatch) => {
+export const getProducts = async (dispatch, axiosJWT) => {
     dispatch(getProductStart());
 
     try {
-        const res = await axios.get(BASE_URL_API + 'products');
+        const res = await axiosJWT.get(BASE_URL_API + 'products');
         dispatch(getProductSuccess(res.data.resultProducts));
     } catch (err) {
         dispatch(getProductFailure());
     }
 };
 
-export const deleteProduct = async (id, dispatch, token) => {
+export const deleteProduct = async (id, dispatch, token, axiosJWT) => {
     dispatch(deleteProductStart());
 
     try {
         // const res = await axios.delete(BASE_URL_API + "products/${id}`, {
-        await axios.delete(BASE_URL_API + `products/${id}`, {
+        await axiosJWT.delete(BASE_URL_API + `products/${id}`, {
             headers: { token: `Bearer ${token}` },
         });
         dispatch(deleteProductSuccess(id));
@@ -107,11 +107,11 @@ export const deleteProduct = async (id, dispatch, token) => {
     }
 };
 
-export const updateProduct = async (id, product, dispatch, token) => {
+export const updateProduct = async (id, product, dispatch, token, axiosJWT) => {
     dispatch(updateProductStart());
 
     try {
-        const res = await axios.put(BASE_URL_API + `products/${id}`, product, {
+        const res = await axiosJWT.put(BASE_URL_API + `products/${id}`, product, {
             headers: { token: `Bearer ${token}` },
         });
         // dispatch(updateProductSuccess({ id, product }));
@@ -121,11 +121,11 @@ export const updateProduct = async (id, product, dispatch, token) => {
     }
 };
 
-export const addProduct = async (product, dispatch, token) => {
+export const addProduct = async (product, dispatch, token, axiosJWT) => {
     dispatch(addProductStart());
 
     try {
-        const res = await axios.post(BASE_URL_API + 'products', product, {
+        const res = await axiosJWT.post(BASE_URL_API + 'products', product, {
             headers: { token: `Bearer ${token}` },
         });
         dispatch(addProductSuccess(res.data));

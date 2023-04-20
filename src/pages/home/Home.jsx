@@ -6,13 +6,19 @@ import WidgetLg from '../../components/widgetLg/WidgetLg';
 import { useMemo, useState, useEffect } from 'react';
 // import { userRequest } from "../../requestMethods";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers } from '../../redux/apiCalls';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function Home() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
-
+    console.log('token', token);
+    const users = useSelector((state) => state.users?.users);
     const [userStats, setUserStats] = useState([]);
+
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const MONTHS = useMemo(
         () => [
@@ -35,7 +41,7 @@ export default function Home() {
     useEffect(() => {
         const getStats = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/users/stats', {
+                const res = await axiosJWT.get('http://localhost:5000/api/users/stats', {
                     headers: { token: `Bearer ${token}` },
                 });
 
@@ -49,6 +55,10 @@ export default function Home() {
         };
         getStats();
     }, [token, MONTHS]);
+
+    useEffect(() => {
+        getUsers(dispatch, token, axiosJWT);
+    }, [token, dispatch]);
 
     return (
         <div className="home">

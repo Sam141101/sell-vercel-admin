@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { BASE_URL_API } from '../../requestMethods';
 import axios from 'axios';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 const changDate = (isoString) => {
     const date = new Date(isoString);
@@ -28,9 +29,12 @@ export default function DiscountList() {
     const [show, setShow] = useState(false);
     const [discountList, setDiscountList] = useState([]);
 
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosInstance(admin, dispatch);
+
     const handleDelete = async (id) => {
         try {
-            await axios.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
                 headers: { token: `Bearer ${token}` },
             });
             const newListDiscount = discountList.filter((item) => item._id !== id);
@@ -103,9 +107,12 @@ export default function DiscountList() {
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const res = await axios.get(BASE_URL_API + `discounts/list/${select}`, {
-                    headers: { token: `Bearer ${token}` },
-                });
+                const res = await axiosJWT.get(
+                    BASE_URL_API + `discounts/list/${select}`,
+                    {
+                        headers: { token: `Bearer ${token}` },
+                    },
+                );
 
                 if (res.data.length > 0) {
                     setShow(true);

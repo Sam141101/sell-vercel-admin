@@ -17,6 +17,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 
 import app from '../../firebase';
 import { updateUser } from '../../redux/apiCalls';
+import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function User() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -33,6 +34,8 @@ export default function User() {
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
     const dispatch = useDispatch();
+
+    const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleChange = (e) => {
         setInputs((prev) => {
@@ -79,7 +82,7 @@ export default function User() {
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     const update = { ...inputs, img: downloadURL };
-                    updateUser(token, dispatch, user._id, update);
+                    updateUser(token, dispatch, user._id, update, axiosJWT);
                 });
             },
         );
