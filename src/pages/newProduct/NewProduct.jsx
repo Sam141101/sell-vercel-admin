@@ -12,7 +12,6 @@ export default function NewProduct() {
 
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
-    const [cat, setCat] = useState([]);
     const dispatch = useDispatch();
 
     const axiosJWT = createAxiosInstance(admin, dispatch);
@@ -21,10 +20,6 @@ export default function NewProduct() {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
-    };
-
-    const handleCat = (e) => {
-        setCat(e.target.value.split(','));
     };
 
     const handleClick = (e) => {
@@ -66,7 +61,7 @@ export default function NewProduct() {
                 // Handle successful uploads on complete
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    const product = { ...inputs, img: downloadURL, categories: cat };
+                    const product = { ...inputs, img: downloadURL };
                     addProduct(product, dispatch, token, axiosJWT);
                 });
             },
@@ -75,59 +70,128 @@ export default function NewProduct() {
 
     return (
         <div className="newProduct">
-            <h1 className="addProductTitle">New Product</h1>
-            <form className="addProductForm">
-                <div className="addProductItem">
-                    <label>Image</label>
-                    <input
-                        type="file"
-                        id="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                    />
-                </div>
-                <div className="addProductItem">
-                    <label>Title</label>
-                    <input
-                        name="title"
-                        type="text"
-                        placeholder="Apple Airpods"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="addProductItem">
-                    <label>Description</label>
-                    <input
-                        name="desc"
-                        type="text"
-                        placeholder="Description...."
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="addProductItem">
-                    <label>Price</label>
-                    <input
-                        name="price"
-                        type="number"
-                        placeholder="10000"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="addProductItem">
-                    <label>Categories</label>
-                    <input type="text" placeholder="TEE, SHORT" onChange={handleCat} />
-                </div>
-                <div className="addProductItem">
-                    <label>Stock</label>
-                    <select name="inStock" onChange={handleChange}>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
+            <h1 className="addProductTitle">Sản phẩm mới</h1>
+
+            <div className="addProductItem">
+                <label>Hình ảnh</label>
+                <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                />
+            </div>
+
+            <div className="frame-new-info">
+                <div className="form-new-info-left">
+                    <form className="addProductForm">
+                        <div className="addProductItem">
+                            <label>Tên sản phẩm</label>
+                            <input
+                                name="title"
+                                type="text"
+                                placeholder="Apple Airpods"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="addProductItem">
+                            <label>Mô tả</label>
+                            <input
+                                name="desc"
+                                type="text"
+                                placeholder="Description...."
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="addProductItem">
+                            <label>Giá</label>
+                            <input
+                                name="price"
+                                type="number"
+                                placeholder="10000"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="addProductItem">
+                            <label>Loại sản phẩm</label>
+                            <input
+                                type="text"
+                                name="categories"
+                                placeholder="TEE, SHORT, POLO..."
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="addProductItem">
+                            <label>Màu sắc</label>
+                            <input
+                                type="text"
+                                name="color"
+                                placeholder="RED, BLACK, WHITE..."
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </form>
                 </div>
 
-                <button onClick={handleClick} className="addProductButton">
-                    Create
-                </button>
-            </form>
+                <div className="form-new-info-right">
+                    <div className="frame-add-size">
+                        <div className="addProductItem">
+                            <label>Số lượng sản phẩm size S</label>
+                            <input
+                                name="sizeS"
+                                type="number"
+                                onChange={handleChange}
+                                placeholder="Số lượng sản phẩm"
+                            />
+                        </div>
+
+                        <div className="addProductItem">
+                            <label>Số lượng sản phẩm size M</label>
+                            <input
+                                type="number"
+                                name="sizeM"
+                                onChange={handleChange}
+                                placeholder="Số lượng sản phẩm"
+                            />
+                        </div>
+
+                        <div className="addProductItem">
+                            <label>Số lượng sản phẩm size L</label>
+                            <input
+                                type="number"
+                                name="sizeL"
+                                onChange={handleChange}
+                                placeholder="Số lượng sản phẩm"
+                            />
+                        </div>
+                    </div>
+                    <div className="frame-add-discount">
+                        <div className="addProductItem">
+                            <label>Giảm giá sản phẩm</label>
+                            <input
+                                onChange={handleChange}
+                                name="dicount"
+                                type="number"
+                                placeholder="Số phần trăm muốn giảm"
+                            />
+                        </div>
+
+                        <div className="addProductItem">
+                            <label>Thời gian giảm giá sản phẩm</label>
+                            <input
+                                type="number"
+                                onChange={handleChange}
+                                name="expireAt"
+                                placeholder="Số giờ giảm giá"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onClick={handleClick} className="addProductButton">
+                Create
+            </button>
         </div>
     );
 }

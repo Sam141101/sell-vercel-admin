@@ -72,12 +72,13 @@ export default function NewDiscountCode() {
         <div className="new-discount">
             <h1 className="addProductTitle">Mã giảm giá mới</h1>
             <form className="add-discount-form">
-                {/* <Code
+                <Code
                     type="newCode"
                     token={token}
                     setInputs={setInputs}
                     inputs={inputs}
-                /> */}
+                    check="code"
+                />
 
                 <OptionSelect
                     page="new"

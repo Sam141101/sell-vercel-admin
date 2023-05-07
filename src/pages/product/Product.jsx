@@ -1,17 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 import './product.css';
 import Chart from '../../components/chart/Chart';
-// import { productData } from "../../dummyData";
 import { Publish } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useMemo, useEffect } from 'react';
-// import { userRequest } from "../../requestMethods";
 import axios from 'axios';
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import app from '../../firebase';
 import { updateProduct } from '../../redux/apiCalls';
 import { createAxiosInstance } from '../../useAxiosJWT';
+import { BASE_URL_API } from '../../requestMethods';
 
 export default function Product() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -30,6 +29,7 @@ export default function Product() {
     const [pStats, setPStats] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [fileList, setFileList] = useState([]);
+    const [infoProduct, setInfoProduct] = useState({});
 
     const MONTHS = useMemo(
         () => [
@@ -48,30 +48,6 @@ export default function Product() {
         ],
         [],
     );
-
-    useEffect(() => {
-        const getStats = async () => {
-            try {
-                const res = await axiosJWT.get(
-                    'http://localhost:5000/api/orders/income?pid=' + productId,
-                    {
-                        headers: { token: `Bearer ${token}` },
-                    },
-                );
-
-                const list = res.data.sort((a, b) => {
-                    return a._id - b._id;
-                });
-                list.map((item) =>
-                    setPStats((prev) => [
-                        ...prev,
-                        { name: MONTHS[item._id - 1], Sales: item.total },
-                    ]),
-                );
-            } catch (err) {}
-        };
-        getStats();
-    }, [token, productId, MONTHS]);
 
     // load hình ảnh lên
     const handleChangeFile = async (event) => {
@@ -113,7 +89,9 @@ export default function Product() {
     };
 
     // upload product
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({
+        expireAt: 0,
+    });
     const [file, setFile] = useState(null);
 
     const handleChange = (e) => {
@@ -131,16 +109,9 @@ export default function Product() {
 
         const uploadTask = uploadBytesResumable(storageRef, file);
 
-        // Register three observers:
-        // 1. 'state_changed' observer, called any time the state changes
-        // 2. Error observer, called on failure
-        // 3. Completion observer, called on successful completion
-
         uploadTask.on(
             'state_changed',
             (snapshot) => {
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
@@ -158,8 +129,6 @@ export default function Product() {
                 // Handle unsuccessful uploads
             },
             () => {
-                // Handle successful uploads on complete
-                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     const upproduct = { ...inputs, img: downloadURL };
                     updateProduct(productId, upproduct, dispatch, token, axiosJWT);
@@ -167,6 +136,44 @@ export default function Product() {
             },
         );
     };
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const res = await axios.get(
+                    BASE_URL_API + 'products/size-discount-product/' + productId,
+                );
+                setInfoProduct(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getProduct();
+    }, [productId]);
+
+    useEffect(() => {
+        const getStats = async () => {
+            try {
+                const res = await axiosJWT.get(
+                    'http://localhost:5000/api/orders/income?pid=' + productId,
+                    {
+                        headers: { token: `Bearer ${token}` },
+                    },
+                );
+
+                const list = res.data.sort((a, b) => {
+                    return a._id - b._id;
+                });
+                list.map((item) =>
+                    setPStats((prev) => [
+                        ...prev,
+                        { name: MONTHS[item._id - 1], Sales: item.total },
+                    ]),
+                );
+            } catch (err) {}
+        };
+        getStats();
+    }, [token, productId, MONTHS]);
 
     return (
         <div className="product">
@@ -177,42 +184,51 @@ export default function Product() {
                 </Link>
             </div>
             <div className="productTop">
-                <div className="productTopLeft">
-                    <div className="product-top-left-frame">
-                        <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
-                    </div>
-                </div>
                 <div className="productTopRight">
                     <div className="product-top-right-frame">
                         <div className="product-top-right-title">Kho hàng</div>
-                        <div className="productInfoTop">
-                            <div className="product-info-title">Sản phẩm:</div>
-                            <div className="product-info-block">
-                                {/* <img
-                                    src={product.img}
-                                    alt=""
-                                    className="productInfoImg"
-                                /> */}
-                                <span className="productName">{product.title}</span>
-                            </div>
-                        </div>
+
                         <div className="productInfoBottom">
                             <div className="productInfoItem">
                                 <span className="productInfoKey">ID:</span>
                                 <span className="productInfoValue">{product._id}</span>
                             </div>
                             <div className="productInfoItem">
-                                <span className="productInfoKey">Sales:</span>
-                                <span className="productInfoValue">5123</span>
+                                <span className="productInfoKey">Giảm giá sản phẩm:</span>
+                                <span className="productInfoValue">
+                                    {infoProduct.findDiscount?.discount_amount}%
+                                </span>
                             </div>
 
                             <div className="productInfoItem">
-                                <span className="productInfoKey">In stock:</span>
-                                <span className="productInfoValue">
-                                    {product?.inStock ? 'Yes' : 'No'}
-                                </span>
+                                <div className="productInfoKey">
+                                    Số lượng sản phẩm trong kho:
+                                </div>
                             </div>
+
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <th className="product-th th">Size</th>
+                                        <th className="th">Số lượng</th>
+                                    </tr>
+
+                                    {Object.keys(infoProduct).length !== 0 &&
+                                        infoProduct.findSizes.map((item, index) => (
+                                            <tr key={index}>
+                                                <td className="td">{item.size}</td>
+                                                <td className="td">{item.inStock}</td>
+                                            </tr>
+                                        ))}
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                </div>
+
+                <div className="productTopLeft">
+                    <div className="product-top-left-frame">
+                        <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
                     </div>
                 </div>
             </div>
@@ -240,16 +256,40 @@ export default function Product() {
                             onChange={handleChange}
                             placeholder={product.price}
                         />
-                        <label>Còn hàng</label>
-                        <select
-                            className="product-form-left-selected"
-                            name="inStock"
-                            id="idStock"
+                        <label>Số lượng hàng</label>
+
+                        {Object.keys(infoProduct).length !== 0 &&
+                            infoProduct.findSizes.map((item, index) => (
+                                <div className="frame-size" key={index}>
+                                    <span className="title-size">Size {item.size}:</span>
+                                    <input
+                                        name={`Size${item.size}`}
+                                        type="number"
+                                        onChange={handleChange}
+                                        className="size-amount-inStock"
+                                        placeholder={item.inStock}
+                                        // value={item.inStock || 0}
+                                    />
+                                </div>
+                            ))}
+
+                        <label>Giảm giá sản phẩm</label>
+                        <input
+                            name="discount"
+                            type="number"
                             onChange={handleChange}
-                        >
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
+                            placeholder={infoProduct.findDiscount?.discount_amount || 0}
+                        />
+
+                        <label>Thời gian giảm giá</label>
+                        <input
+                            name="expireAt"
+                            type="number"
+                            onChange={handleChange}
+                            placeholder={
+                                infoProduct.findDiscount?.expireAt === null ? 0 : 0
+                            }
+                        />
                     </div>
                     <div className="productFormRight">
                         <div className="productUpload">

@@ -27,26 +27,30 @@ export default function ProductList() {
     };
 
     const columns = [
-        { field: '_id', headerName: 'ID', width: 220 },
+        { field: '_id', headerName: 'ID', width: 200 },
         {
             field: 'product',
-            headerName: 'Product',
+            headerName: 'Sản phẩm',
             width: 320,
             renderCell: (params) => {
                 return (
                     <div className="productListItem">
                         <img className="productListImg" src={params.row.img} alt="" />
-                        {params.row.title}
+                        <div className="title-name-product">{params.row.title}</div>
                     </div>
                 );
             },
         },
-        { field: 'inStock', headerName: 'Stock', width: 90 },
+        {
+            field: 'categories',
+            headerName: 'Loại hình',
+            width: 150,
+        },
 
         {
             field: 'price',
-            headerName: 'Price',
-            width: 160,
+            headerName: 'Giá cả',
+            width: 120,
         },
         {
             field: 'action',

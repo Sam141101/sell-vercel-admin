@@ -86,8 +86,8 @@ export const getProducts = async (dispatch, axiosJWT) => {
     dispatch(getProductStart());
 
     try {
-        const res = await axiosJWT.get(BASE_URL_API + 'products');
-        dispatch(getProductSuccess(res.data.resultProducts));
+        const res = await axiosJWT.get(BASE_URL_API + 'products/list-product');
+        dispatch(getProductSuccess(res.data));
     } catch (err) {
         dispatch(getProductFailure());
     }

@@ -26,16 +26,20 @@
     margin-right: 15px;
 }
 
-.productTopLeft,
 .productTopRight {
-    width: 50%;
+    width: 35%;
     /* height: 180px; */
+    margin-right: 15px;
+}
+
+.productTopLeft {
+    width: 65%;
 }
 
 .product-top-left-frame,
 .product-top-right-frame {
     width: 100%;
-    height: 180px;
+    /* height: 180px; */
 }
 
 .product-top-right-title {
@@ -48,11 +52,9 @@
 .product-top-right-frame {
 }
 
-.productTopLeft {
-}
-
 .productTopRight {
     padding-left: 15px;
+    padding-bottom: 15px;
     -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
@@ -72,6 +74,7 @@
 
 .productInfoKey {
     margin-right: 10px;
+    /* width: -webkit-fill-available; */
 }
 
 .product-info-title {
@@ -90,17 +93,47 @@
 
 .productInfoBottom {
     margin-top: 5px;
+    margin-right: 15px;
+}
+
+.table,
+.th,
+.td {
+    border: 1px solid;
+}
+
+.table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.product-th,
+.product-td {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.td {
+    height: 25px;
+    text-align: center;
+}
+
+.size-amount-inStock {
+    margin: 7px 0;
 }
 
 .productInfoItem {
     padding: 5px 0;
-    /* width: 150px; */
     display: flex;
     /* justify-content: space-between; */
+    /* margin-right: 30px; */
 }
 
 .productInfoValue {
     font-weight: 600;
+    margin-left: 20px;
 }
 
 .productBottom {
@@ -135,7 +168,7 @@
 
 .productFormLeft input[type='email'],
 .productFormLeft input[type='text'],
-.productFormLeft input[type='password'] {
+.productFormLeft input[type='number'] {
     /* width: 100%; */
     width: 80%;
     height: 50px;
@@ -150,7 +183,7 @@
 
 .productFormLeft input[type='email']:focus,
 .productFormLeft input[type='text']:focus,
-.productFormLeft input[type='password']:focus {
+.productFormLeft input[type='number']:focus {
     background: #fff;
     border-color: #ededed;
 }
@@ -164,6 +197,21 @@
 /* .productFormLeft > select {
     margin-bottom: 10px;
 } */
+
+.frame-size {
+    display: flex;
+    align-items: center;
+    width: 90%;
+}
+
+.title-size {
+    width: 20%;
+}
+
+.frame-size input[type='number'] {
+    width: 100% !important;
+    margin-left: 15px;
+}
 
 .product-form-left-selected {
     width: 15%;

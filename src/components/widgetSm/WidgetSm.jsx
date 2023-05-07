@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import { createAxiosInstance } from '../../useAxiosJWT';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function WidgetSm({ token }) {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function WidgetSm({ token, admin }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
 
     const dispatch = useDispatch();
     const axiosJWT = createAxiosInstance(admin, dispatch);

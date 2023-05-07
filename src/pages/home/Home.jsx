@@ -13,8 +13,7 @@ import { createAxiosInstance } from '../../useAxiosJWT';
 export default function Home() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
-    console.log('token', token);
-    const users = useSelector((state) => state.users?.users);
+    // const users = useSelector((state) => state.users?.users);
     const [userStats, setUserStats] = useState([]);
 
     const dispatch = useDispatch();
@@ -72,8 +71,8 @@ export default function Home() {
                 />
             </div>
             <div className="homeWidgets">
-                <WidgetSm token={token} />
-                <WidgetLg token={token} />
+                <WidgetSm token={token} admin={admin} />
+                <WidgetLg token={token} admin={admin} />
             </div>
         </div>
     );

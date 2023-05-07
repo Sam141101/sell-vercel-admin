@@ -4,9 +4,16 @@
     height: 530px;
 }
 
+.title-name-product {
+    display: -webkit-box;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
 .productListItem {
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 .productListImg {

@@ -6,15 +6,13 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function WidgetLg({ token }) {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function WidgetLg({ token, admin }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
 
     const dispatch = useDispatch();
     const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const [orders, setOrders] = useState([]);
-
-    console.log('orders', orders);
 
     useEffect(() => {
         const getOrders = async () => {

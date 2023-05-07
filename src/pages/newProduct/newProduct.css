@@ -1,6 +1,18 @@
 .newProduct {
 }
 
+.frame-new-info {
+    display: flex;
+}
+
+.form-new-info-left {
+    margin-right: 60px;
+}
+
+.form-new-info-right {
+    margin-top: 10px;
+}
+
 .addProductForm {
     margin-top: 10px;
 }

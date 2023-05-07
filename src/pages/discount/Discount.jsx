@@ -77,7 +77,7 @@ export default function Discount() {
     }, [token, discountId]);
 
     console.log(inputs);
-    // console.log(inputs)
+    console.log(inputs.expiration_date);
 
     return (
         <div className="product">
@@ -142,7 +142,7 @@ export default function Discount() {
                         name="expiration_date"
                         handleChange={handleChange}
                         // inputs={changeTime(new Date(inputs.expiration_date))}
-                        inputs={inputs.expiration_date}
+                        inputs={inputs && inputs.expiration_date}
                     />
 
                     <OptionSelect
