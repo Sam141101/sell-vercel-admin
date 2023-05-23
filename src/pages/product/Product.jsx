@@ -175,12 +175,14 @@ export default function Product() {
         getStats();
     }, [token, productId, MONTHS]);
 
+    console.log('infoProduct', infoProduct);
+
     return (
         <div className="product">
             <div className="productTitleContainer">
                 <h1 className="productTitle">Product</h1>
                 <Link to="/newproduct">
-                    <button className="productAddButton">Create</button>
+                    <button className="productAddButton">Tạo mới</button>
                 </Link>
             </div>
             <div className="productTop">
@@ -256,6 +258,23 @@ export default function Product() {
                             onChange={handleChange}
                             placeholder={product.price}
                         />
+
+                        <label>Kiểu sản phẩm</label>
+                        <input
+                            name="categories"
+                            type="text"
+                            onChange={handleChange}
+                            placeholder={product.categories}
+                        />
+
+                        <label>Màu sắc</label>
+                        <input
+                            name="color"
+                            type="text"
+                            onChange={handleChange}
+                            placeholder={product.color}
+                        />
+
                         <label>Số lượng hàng</label>
 
                         {Object.keys(infoProduct).length !== 0 &&

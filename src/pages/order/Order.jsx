@@ -16,7 +16,8 @@ const buttonStatus = (status) => {
     } else if (status === 'delivery') {
         showText = '';
     } else if (status === 'complete') {
-        showText = 'Thông báo đã giao thành công';
+        // showText = 'Thông báo đã giao thành công';
+        showText = '';
     } else {
         showText = 'Xoá đơn hàng';
     }
@@ -30,37 +31,57 @@ export default function Order() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
+    let userid;
+
     const dispatch = useDispatch();
 
+    const [address, setAddress] = useState({});
     const [infoOrder, setInfoOrder] = useState({});
     const [deliveryTime, setDeliveryTime] = useState([]);
     const [pickShift, setPickShift] = useState('');
-
-    console.log('pickShift', pickShift);
+    console.log('pickShift', pickShift, typeof pickShift);
 
     const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleClick = async (status) => {
+        // console.log('statues', status);
         let statusOrder;
         let pick_shift;
+        let infoOrderSend;
         if (status === 'pending') {
             statusOrder = 'confirmation';
+            infoOrderSend = {
+                orderId: infoOrder.orderList._id,
+            };
         } else if (status === 'accept') {
-            pick_shift = deliveryTime.filter((item) => item.id == pickShift);
+            pick_shift = deliveryTime.filter((item) => item.id === Number(pickShift));
+            // console.log('mm', pick_shift);
+
             statusOrder = 'delivery';
+            infoOrderSend = {
+                orderId: infoOrder.orderList._id,
+                pick_shift: pick_shift,
+            };
         } else if (status === 'cancel') {
             statusOrder = 'delete';
+            infoOrderSend = {
+                orderId: infoOrder.orderList._id,
+                // pick_shift: pick_shift[0],
+            };
         } else {
             return;
         }
-        console.log('pick_shift', pick_shift);
+        // console.log('pick_shift', pick_shift);
+        // console.log('statusOrder', statusOrder);
+        // console.log('infoOrderSend', infoOrderSend);
         try {
             const res = await axiosJWT.put(
                 BASE_URL_API + `orders/find/order-${statusOrder}/` + infoOrder.user._id,
-                {
-                    orderId: infoOrder.orderList._id,
-                    pick_shift: pick_shift[0],
-                },
+                // {
+                //     orderId: infoOrder.orderList._id,
+                //     pick_shift: pick_shift[0],
+                // }
+                infoOrderSend,
                 {
                     headers: { token: `Bearer ${token}` },
                 },
@@ -104,6 +125,27 @@ export default function Order() {
         getOrder();
     }, [admin._id, token]);
 
+    useEffect(() => {
+        if (infoOrder && infoOrder.user && infoOrder.user._id) {
+            const getAddress = async () => {
+                try {
+                    const res = await axios.get(
+                        BASE_URL_API + 'address/' + infoOrder.user._id,
+                        {
+                            headers: { token: `Bearer ${token}` },
+                        },
+                    );
+                    setAddress(res.data);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            getAddress();
+        }
+    }, [infoOrder, token]);
+
+    console.log('infoOrder.orderList', deliveryTime);
+
     return (
         <div className="order-content">
             <div className="order-content-title">Thông tin Người nhận</div>
@@ -131,7 +173,7 @@ export default function Order() {
                         )}
                         <div className="info-user-order-span">
                             Địa chỉ:
-                            <span>{infoOrder.user?.address}</span>
+                            <span>{`${address?.address}, ${address?.ward}, ${address?.district}, ${address?.province}`}</span>
                         </div>
                     </div>
 
@@ -146,30 +188,36 @@ export default function Order() {
             </div>
 
             {/* Danh sách ca lấy hàng  */}
-            <div className="order-content-title">Thời gian giao hàng</div>
-            <div className="delivery-time-list">
-                {deliveryTime &&
-                    deliveryTime.map((item1, index) => (
-                        <div className="delivery-time-product-order" key={index}>
-                            <>
-                                <div
-                                    className="delivery-time-item"
-                                    // style={{ display: 'flex' }}
-                                >
-                                    <input
-                                        type="radio"
-                                        id={item1.id.toString()}
-                                        value={item1.id}
-                                        onChange={(e) => setPickShift(e.target.value)}
-                                    />
-                                    <label htmlFor={item1.id.toString()}>
-                                        {item1.title}
-                                    </label>
+            {infoOrder.orderList?.status === 'accept' && (
+                <>
+                    <div className="order-content-title">Thời gian giao hàng</div>
+                    <div className="delivery-time-list">
+                        {deliveryTime &&
+                            deliveryTime.map((item1, index) => (
+                                <div className="delivery-time-product-order" key={index}>
+                                    <>
+                                        <div
+                                            className="delivery-time-item"
+                                            // style={{ display: 'flex' }}
+                                        >
+                                            <input
+                                                type="radio"
+                                                id={item1.id.toString()}
+                                                value={item1.id}
+                                                onChange={(e) =>
+                                                    setPickShift(e.target.value)
+                                                }
+                                            />
+                                            <label htmlFor={item1.id.toString()}>
+                                                {item1.title}
+                                            </label>
+                                        </div>
+                                    </>
                                 </div>
-                            </>
-                        </div>
-                    ))}
-            </div>
+                            ))}
+                    </div>
+                </>
+            )}
 
             <div className="order-content-title">Thông tin đơn hàng</div>
             <div className="order-list">
@@ -234,15 +282,19 @@ export default function Order() {
                                     Huỷ đơn
                                 </button>
                             )} */}
-
-                                <button
-                                    className="wait-purchase-cancel-order-button"
-                                    onClick={() =>
-                                        handleClick(infoOrder.orderList?.status)
-                                    }
-                                >
-                                    {buttonStatus(infoOrder.orderList?.status)}
-                                </button>
+                                {infoOrder.orderList?.status === 'delivery' ||
+                                infoOrder.orderList?.status === 'complete' ? (
+                                    <></>
+                                ) : (
+                                    <button
+                                        className="wait-purchase-cancel-order-button"
+                                        onClick={() =>
+                                            handleClick(infoOrder.orderList?.status)
+                                        }
+                                    >
+                                        {buttonStatus(infoOrder.orderList?.status)}
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>

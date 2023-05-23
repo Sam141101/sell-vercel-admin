@@ -54,13 +54,13 @@ export default function ProductList() {
         },
         {
             field: 'action',
-            headerName: 'Action',
+            headerName: 'Hành động',
             width: 150,
             renderCell: (params) => {
                 return (
                     <>
                         <Link to={'/product/' + params.row._id}>
-                            <button className="productListEdit">Edit</button>
+                            <button className="productListEdit">Chỉnh sửa</button>
                         </Link>
                         <DeleteOutline
                             className="productListDelete"

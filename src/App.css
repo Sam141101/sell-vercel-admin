@@ -24,6 +24,17 @@
     /* margin-right: 20px; */
 }
 
+.amount-order {
+    position: absolute;
+    font-size: 12px;
+    padding: 5px 8px;
+    background: red;
+    border-radius: 50%;
+    top: -12px;
+    right: 20px;
+    color: white;
+}
+
 .order-title {
     font-size: 22px;
     font-weight: 600;
@@ -71,6 +82,7 @@
 }
 
 .default-layout-order-select-link {
+    position: relative;
     text-decoration: none;
     font-weight: 500;
     font-size: 18px;

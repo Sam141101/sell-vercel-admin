@@ -8,7 +8,7 @@ import {
     Publish,
     Wc,
 } from '@material-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import './user.css';
@@ -18,6 +18,8 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import app from '../../firebase';
 import { updateUser } from '../../redux/apiCalls';
 import { createAxiosInstance } from '../../useAxiosJWT';
+import axios from 'axios';
+import { BASE_URL_API } from '../../requestMethods';
 
 export default function User() {
     const admin = useSelector((state) => state.user?.currentUser);
@@ -28,11 +30,10 @@ export default function User() {
     const user = useSelector((state) =>
         state.users.users.find((user) => user._id === userId),
     );
-    console.log(user);
-    console.log(user.token);
 
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
+    const [address, setAddress] = useState({});
     const dispatch = useDispatch();
 
     const axiosJWT = createAxiosInstance(admin, dispatch);
@@ -88,6 +89,20 @@ export default function User() {
         );
     };
 
+    useEffect(() => {
+        const getAddress = async () => {
+            try {
+                const res = await axios.get(BASE_URL_API + 'address/' + user._id, {
+                    headers: { token: `Bearer ${admin.token}` },
+                });
+                setAddress(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getAddress();
+    }, [user._id, admin.token]);
+
     return (
         <div className="user">
             <div className="userTitleContainer">
@@ -138,7 +153,8 @@ export default function User() {
                             </div>
                             <div className="userShowInfo">
                                 <LocationSearching className="userShowIcon" />
-                                <span className="userShowInfoTitle">{user.address}</span>
+
+                                <span className="userShowInfoTitle">{`${address?.address}, ${address?.ward}, ${address?.district}, ${address?.province}`}</span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +192,7 @@ export default function User() {
                                         className="userUpdateInput"
                                     />
                                 </div>
-                                <div className="userUpdateItem">
+                                {/* <div className="userUpdateItem">
                                     <label>Địa chỉ liên hệ</label>
                                     <input
                                         type="text"
@@ -185,7 +201,7 @@ export default function User() {
                                         placeholder={user.address}
                                         className="userUpdateInput"
                                     />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="userUpdateRight">
                                 <div className="userUpdateUpload">

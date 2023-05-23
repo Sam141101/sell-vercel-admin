@@ -73,7 +73,7 @@ export default function Complete() {
     // Action
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            await axiosJWT.delete(BASE_URL_API + `orders/${id}`, {
                 headers: { token: `Bearer ${token}` },
             });
             const newListDiscount = orderList.filter((item) => item._id !== id);

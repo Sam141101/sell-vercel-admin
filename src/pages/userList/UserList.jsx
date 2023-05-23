@@ -53,7 +53,7 @@ export default function UserList() {
         },
         {
             field: 'action',
-            headerName: 'Action',
+            headerName: 'Hành động',
             width: 150,
             renderCell: (params) => {
                 return (
@@ -62,7 +62,7 @@ export default function UserList() {
                             className="userListActionLink"
                             to={'/user/' + params.row._id}
                         >
-                            <button className="userListEdit">Edit</button>
+                            <button className="userListEdit">Chỉnh sửa</button>
                         </Link>
                         <DeleteOutline
                             className="userListDelete"

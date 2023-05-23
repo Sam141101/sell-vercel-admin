@@ -76,9 +76,14 @@ export default function WaitForConfirmation() {
     // Action
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            // await axiosJWT.delete(BASE_URL_API + `discounts/delete/${id}`, {
+            //     headers: { token: `Bearer ${token}` },
+            // });
+
+            await axiosJWT.delete(BASE_URL_API + `orders/${id}`, {
                 headers: { token: `Bearer ${token}` },
             });
+
             const newListDiscount = orderList.filter((item) => item._id !== id);
             setOrderList(newListDiscount);
         } catch (err) {

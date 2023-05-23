@@ -5,6 +5,10 @@
     display: flex;
 }
 
+.addProductTitle1 {
+    margin-bottom: 15px;
+}
+
 .form-new-info-left {
     margin-right: 60px;
 }

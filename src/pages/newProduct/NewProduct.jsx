@@ -70,7 +70,7 @@ export default function NewProduct() {
 
     return (
         <div className="newProduct">
-            <h1 className="addProductTitle">Sản phẩm mới</h1>
+            <h1 className="addProductTitle1">Sản phẩm mới</h1>
 
             <div className="addProductItem">
                 <label>Hình ảnh</label>
@@ -190,7 +190,7 @@ export default function NewProduct() {
             </div>
 
             <button onClick={handleClick} className="addProductButton">
-                Create
+                Tạo mới
             </button>
         </div>
     );
