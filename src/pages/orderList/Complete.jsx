@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './orderList.css';
-import { DeleteOutline, Publish } from '@material-ui/icons';
+import { DeleteOutline } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useMemo, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+// import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
 import { DataGrid } from '@material-ui/data-grid';
 import { createAxiosInstance } from '../../useAxiosJWT';

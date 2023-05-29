@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import './code.css';
 import { BASE_URL_API } from '../../requestMethods';
-import axios from 'axios';
+// import axios from 'axios';
 import OptionSelect from '../optionSelect/OptionSelect';
-import { useDispatch, useSelector } from 'react-redux';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function Code(props) {
-    const admin = useSelector((state) => state.user?.currentUser);
+    // const admin = useSelector((state) => state.user?.currentUser);
 
-    const { check, inputs, setInputs, token, type, handleChange } = props;
+    const { check, inputs, setInputs, token, type, handleChange, axiosJWT } = props;
     const [checkCode, setCheckCode] = useState();
     const [checkUser, setCheckUser] = useState();
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const generateRandomCode = (e) => {
         e.preventDefault();

@@ -1,8 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './order.css';
-import { Publish } from '@material-ui/icons';
+// import { Publish } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL_API } from '../../requestMethods';
 import { createAxiosInstance } from '../../useAxiosJWT';
@@ -31,7 +31,7 @@ export default function Order() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
-    let userid;
+    // let userid;
 
     const dispatch = useDispatch();
 

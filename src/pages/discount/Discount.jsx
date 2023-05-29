@@ -10,22 +10,6 @@ import OptionSelect from '../../components/optionSelect/OptionSelect';
 import { createAxiosInstance } from '../../useAxiosJWT';
 // import NewCode from '../../components/NewCode/NewCode';
 
-function changeTime(expirationDate) {
-    if (!expirationDate instanceof Date) {
-        // Nếu tham số 'expirationDate' không phải là đối tượng Date, trả về 0
-        return 0;
-    }
-
-    // Chuyển đổi expirationDate từ đối tượng Date sang thời gian Unix
-    const expireTimeUnix = expirationDate.getTime();
-
-    // Tính toán giá trị của expireAt
-    const now = Date.now();
-    const expireAt = Math.round((expireTimeUnix - now) / (60 * 60 * 1000));
-
-    return expireAt;
-}
-
 export default function Discount() {
     const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
@@ -96,6 +80,7 @@ export default function Discount() {
                         token={token}
                         setInputs={setInputs}
                         inputs={inputs}
+                        axiosJWT={axiosJWT}
                     />
 
                     <OptionSelect
@@ -141,7 +126,6 @@ export default function Discount() {
                         label="Thời hạn sử dụng"
                         name="expiration_date"
                         handleChange={handleChange}
-                        // inputs={changeTime(new Date(inputs.expiration_date))}
                         inputs={inputs && inputs.expiration_date}
                     />
 

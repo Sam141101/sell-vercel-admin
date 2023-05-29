@@ -61,7 +61,7 @@ export default function Home() {
 
     return (
         <div className="home">
-            <FeaturedInfo token={token} />
+            <FeaturedInfo token={token} axiosJWT={axiosJWT} />
             <div className="home-chart">
                 <Chart
                     data={userStats}

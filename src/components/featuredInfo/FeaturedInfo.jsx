@@ -2,32 +2,18 @@ import './featuredInfo.css';
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
 // import { userRequest } from "../../requestMethods";
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import axios from 'axios';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function FeaturedInfo({ token }) {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function FeaturedInfo({ token, axiosJWT }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
 
     const [income, setIncome] = useState([]);
     const [percent, setPercent] = useState(0);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
-
-    // useEffect(() => {
-    //   const getIncome = async () => {
-    //     try {
-    //       const res = await axios.get("http://localhost:5000/api/orders/income", {
-    //         headers: { token: `Bearer ${token}` },
-    //       });
-    //       setIncome(res.data);
-    //       setPercent((res.data[1].total * 100) / res.data[0].total - 100);
-    //     } catch (err) {}
-    //   };
-
-    //   getIncome();
-    // }, []);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     useEffect(() => {
         const getIncome = async () => {

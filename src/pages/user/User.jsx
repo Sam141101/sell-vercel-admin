@@ -10,7 +10,7 @@ import {
 } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './user.css';
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';

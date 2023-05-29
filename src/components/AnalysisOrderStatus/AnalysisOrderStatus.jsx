@@ -7,15 +7,15 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function AnalysisOrderStatus({ title, token }) {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function AnalysisOrderStatus({ title, token, axiosJWT }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
 
     const [listUser, setListUser] = useState([]);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
-    const handleGift = async () => {};
+    // const handleGift = async () => {};
 
     useEffect(() => {
         const getIncome = async () => {
@@ -69,7 +69,7 @@ export default function AnalysisOrderStatus({ title, token }) {
                                             item.img ||
                                             'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg'
                                         }
-                                        alt=""
+                                        alt="lkk"
                                         className="analysis-status-item-img"
                                     />
                                     <span className="analysis-status-item-title-name">
@@ -80,23 +80,23 @@ export default function AnalysisOrderStatus({ title, token }) {
                                     {title === 'complete' ? (
                                         <>
                                             {item.firstTimeBuy}
-                                            <Link
+                                            {/* <Link
                                                 to={`/discount/${item._id}`}
                                                 className="analysis-status-item-gift"
                                                 // onClick={handleGift}
                                             >
                                                 Tặng quà
-                                            </Link>
+                                            </Link> */}
                                         </>
                                     ) : (
                                         <>
                                             {item.canceledOrder}
-                                            <span
+                                            {/* <span
                                                 className="analysis-status-item-gift"
                                                 onClick={handleGift}
                                             >
                                                 Giới hạn
-                                            </span>
+                                            </span> */}
                                         </>
                                     )}
                                 </div>

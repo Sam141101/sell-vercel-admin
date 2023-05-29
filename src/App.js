@@ -12,15 +12,15 @@ import {
     Navigate,
     // Redirect,
 } from 'react-router-dom';
-import UserList from './pages/userList/UserList';
-import User from './pages/user/User';
-import NewUser from './pages/newUser/NewUser';
-import ProductList from './pages/productList/ProductList';
-import Product from './pages/product/Product';
-import NewProduct from './pages/newProduct/NewProduct';
+// import UserList from './pages/userList/UserList';
+// import User from './pages/user/User';
+// import NewUser from './pages/newUser/NewUser';
+// import ProductList from './pages/productList/ProductList';
+// import Product from './pages/product/Product';
+// import NewProduct from './pages/newProduct/NewProduct';
 import Login from './pages/login/Login';
 import { useSelector } from 'react-redux';
-import Order from './pages/order/Order';
+// import Order from './pages/order/Order';
 import { publicRoutes } from './routes/publicRouter';
 import DefaultLayoutOrder from './Layout/DefaultLayoutOrder';
 import React from 'react';

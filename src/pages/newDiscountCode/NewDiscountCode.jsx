@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './newDiscountCode.css';
 import OptionSelect from '../../components/optionSelect/OptionSelect';
-import axios from 'axios';
+// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL_API } from '../../requestMethods';
 import Code from '../../components/Code/Code';
@@ -12,7 +12,7 @@ export default function NewDiscountCode() {
     const token = admin.token;
 
     const [checkUser, setCheckUser] = useState();
-    const [checkCode, setCheckCode] = useState();
+    // const [checkCode, setCheckCode] = useState();
     const [inputs, setInputs] = useState({
         is_single_use: '',
         is_redeemed: '',
@@ -78,6 +78,7 @@ export default function NewDiscountCode() {
                     setInputs={setInputs}
                     inputs={inputs}
                     check="code"
+                    axiosJWT={axiosJWT}
                 />
 
                 <OptionSelect
