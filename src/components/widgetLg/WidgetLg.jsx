@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import './widgetLg.css';
 import { format } from 'timeago.js';
-import axios from 'axios';
+// import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function WidgetLg({ token, admin }) {
+export default function WidgetLg({ token, axiosJWT }) {
     // const admin = useSelector((state) => state.user?.currentUser);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const [orders, setOrders] = useState([]);
 

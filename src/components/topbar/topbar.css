@@ -9,6 +9,28 @@
   z-index: 999; */
 }
 
+.nav-img {
+    position: relative;
+}
+
+.nav-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ccc;
+    width: 100px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+}
+
+.nav-menu:hover {
+    opacity: 0.8;
+}
+
 .topbarWrapper {
     height: 100%;
     padding: 0px 20px;
@@ -56,4 +78,21 @@
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.nav-img:hover .nav-menu {
+    display: block;
+
+    /* background-color: red; */
+}
+
+.nav-img::before {
+    content: '';
+    display: block;
+    background-color: transparent;
+    cursor: pointer;
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    top: 70%;
 }

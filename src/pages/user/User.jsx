@@ -9,7 +9,7 @@ import {
     Wc,
 } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './user.css';
 
@@ -17,12 +17,12 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 
 import app from '../../firebase';
 import { updateUser } from '../../redux/apiCalls';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 import axios from 'axios';
-import { BASE_URL_API } from '../../requestMethods';
+// import { BASE_URL_API } from '../../requestMethods';
 
-export default function User() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function User({ admin, axiosJWT, dispatch, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
     const location = useLocation();
     const userId = location.pathname.split('/')[2];
@@ -34,9 +34,9 @@ export default function User() {
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
     const [address, setAddress] = useState({});
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleChange = (e) => {
         setInputs((prev) => {

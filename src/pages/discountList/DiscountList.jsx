@@ -3,11 +3,11 @@ import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { BASE_URL_API } from '../../requestMethods';
-import axios from 'axios';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { BASE_URL_API } from '../../requestMethods';
+// import axios from 'axios';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
 const changDate = (isoString) => {
     const date = new Date(isoString);
@@ -20,8 +20,8 @@ const changDate = (isoString) => {
     return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
 };
 
-export default function DiscountList() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function DiscountList({ admin, dispatch, axiosJWT, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
     const location = useLocation();
     const select = location.pathname.split('/')[2];
@@ -29,8 +29,8 @@ export default function DiscountList() {
     const [show, setShow] = useState(false);
     const [discountList, setDiscountList] = useState([]);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleDelete = async (id) => {
         try {

@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import './order.css';
 // import { Publish } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { BASE_URL_API } from '../../requestMethods';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import axios from 'axios';
+// import { BASE_URL_API } from '../../requestMethods';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
 const buttonStatus = (status) => {
     let showText = '';
@@ -25,15 +25,15 @@ const buttonStatus = (status) => {
     return showText;
 };
 
-export default function Order() {
+export default function Order({ admin, dispatch, axiosJWT, BASE_URL_API, axios }) {
     const location = useLocation();
     const orderId = location.pathname.split('/')[3];
-    const admin = useSelector((state) => state.user?.currentUser);
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
     // let userid;
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [address, setAddress] = useState({});
     const [infoOrder, setInfoOrder] = useState({});
@@ -41,7 +41,7 @@ export default function Order() {
     const [pickShift, setPickShift] = useState('');
     console.log('pickShift', pickShift, typeof pickShift);
 
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleClick = async (status) => {
         // console.log('statues', status);

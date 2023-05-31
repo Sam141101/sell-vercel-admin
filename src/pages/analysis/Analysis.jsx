@@ -1,18 +1,18 @@
 import Chart from '../../components/chart/Chart';
 import './analysis.css';
 import { useMemo, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import AnalysisOrderStatus from '../../components/AnalysisOrderStatus/AnalysisOrderStatus';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function Analysis() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function Analysis({ admin, dispatch, axiosJWT, BASE_URL_API, axios }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
     const [userStats, setUserStats] = useState([]);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const MONTHS = useMemo(
         () => [
@@ -63,8 +63,18 @@ export default function Analysis() {
             </div>
 
             <div className="user-order-status">
-                <AnalysisOrderStatus title="complete" token={token} axiosJWT={axiosJWT} />
-                <AnalysisOrderStatus title="cancel" token={token} axiosJWT={axiosJWT} />
+                <AnalysisOrderStatus
+                    title="complete"
+                    axiosJWT={axiosJWT}
+                    BASE_URL_API={BASE_URL_API}
+                    token={token}
+                />
+                <AnalysisOrderStatus
+                    title="cancel"
+                    axiosJWT={axiosJWT}
+                    BASE_URL_API={BASE_URL_API}
+                    token={token}
+                />
             </div>
         </div>
     );

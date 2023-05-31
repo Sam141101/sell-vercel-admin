@@ -2,16 +2,16 @@ import './widgetSm.css';
 import { Visibility } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 // import { userRequest } from "../../requestMethods";
-import axios from 'axios';
+// import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { createAxiosInstance } from '../../useAxiosJWT';
-import { useDispatch, useSelector } from 'react-redux';
+// import { createAxiosInstance } from '../../useAxiosJWT';
+// import { useDispatch, useSelector } from 'react-redux';
 
-export default function WidgetSm({ token, admin }) {
+export default function WidgetSm({ token, axiosJWT }) {
     // const admin = useSelector((state) => state.user?.currentUser);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {

@@ -2,25 +2,25 @@ import { Link, useLocation } from 'react-router-dom';
 import './product.css';
 import Chart from '../../components/chart/Chart';
 import { Publish } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import app from '../../firebase';
 import { updateProduct } from '../../redux/apiCalls';
-import { createAxiosInstance } from '../../useAxiosJWT';
-import { BASE_URL_API } from '../../requestMethods';
+// import { createAxiosInstance } from '../../useAxiosJWT';
+// import { BASE_URL_API } from '../../requestMethods';
 
-export default function Product() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const location = useLocation();
     const productId = location.pathname.split('/')[2];
 
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const product = useSelector((state) =>
         state.product.products.find((product) => product._id === productId),

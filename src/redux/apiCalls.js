@@ -1,4 +1,11 @@
-import { loginFailure, loginStart, loginSuccess } from './userRedux';
+import {
+    loginFailure,
+    loginStart,
+    loginSuccess,
+    logoutFailure,
+    logoutStart,
+    logoutSuccess,
+} from './userRedux';
 // import { publicRequest, userRequest } from "../requestMethods";
 import {
     getProductFailure,
@@ -13,6 +20,7 @@ import {
     addProductFailure,
     addProductSuccess,
     addProductStart,
+    resetProduct,
 } from './productRedux';
 import axios from 'axios';
 import {
@@ -22,6 +30,7 @@ import {
     getUserFailure,
     getUserStart,
     getUserSuccess,
+    resetUsers,
     updateUserFailure,
     updateUserStart,
     updateUserSuccess,
@@ -37,6 +46,30 @@ export const login = async (dispatch, user, navigate) => {
         // navigate("/home");
     } catch (err) {
         dispatch(loginFailure());
+    }
+};
+
+export const logout = async (dispatch, id, token, axiosJWT, history, BASE_URL_API) => {
+    console.log('dispatch', id);
+    dispatch(logoutStart());
+
+    try {
+        await axiosJWT.post(
+            BASE_URL_API + 'auth/logout',
+            {
+                userId: id,
+            },
+            {
+                headers: { token: `Bearer ${token}` },
+            },
+        );
+        dispatch(logoutSuccess());
+        dispatch(resetProduct());
+        dispatch(resetUsers());
+        history.push('/login');
+    } catch (err) {
+        console.log(err);
+        dispatch(logoutFailure());
     }
 };
 

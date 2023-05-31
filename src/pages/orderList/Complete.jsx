@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom';
 import './orderList.css';
 import { DeleteOutline } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 // import axios from 'axios';
-import { BASE_URL_API } from '../../requestMethods';
+// import { BASE_URL_API } from '../../requestMethods';
 import { DataGrid } from '@material-ui/data-grid';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function Complete() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function Complete({ admin, dispatch, axiosJWT, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
     const [show, setShow] = useState(false);
     const [orderList, setOrderList] = useState([]);
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     // data grid
     const columns = [

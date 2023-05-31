@@ -2,13 +2,13 @@ import { useState } from 'react';
 import './newDiscountCode.css';
 import OptionSelect from '../../components/optionSelect/OptionSelect';
 // import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { BASE_URL_API } from '../../requestMethods';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { BASE_URL_API } from '../../requestMethods';
 import Code from '../../components/Code/Code';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function NewDiscountCode() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function NewDiscountCode({ admin, dispatch, axiosJWT, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
     const [checkUser, setCheckUser] = useState();
@@ -22,8 +22,8 @@ export default function NewDiscountCode() {
         coupon_code: '',
     });
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleChange = (e) => {
         const value = e.target.value;

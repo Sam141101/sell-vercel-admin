@@ -1,14 +1,15 @@
 import './analysisOrderStatus.css';
-import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
+// import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
 // import { userRequest } from "../../requestMethods";
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import axios from 'axios';
+// import { Link } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function AnalysisOrderStatus({ title, token, axiosJWT }) {
+export default function AnalysisOrderStatus({ title, token, axiosJWT, BASE_URL_API }) {
     // const admin = useSelector((state) => state.user?.currentUser);
+    console.log('bass', BASE_URL_API);
 
     const [listUser, setListUser] = useState([]);
 
@@ -21,11 +22,12 @@ export default function AnalysisOrderStatus({ title, token, axiosJWT }) {
         const getIncome = async () => {
             try {
                 const res = await axiosJWT.get(
-                    `http://localhost:5000/api/users/${
-                        title === 'complete'
-                            ? 'find-user-high-order'
-                            : 'find-users-canceled'
-                    }`,
+                    BASE_URL_API +
+                        `users/${
+                            title === 'complete'
+                                ? 'find-user-high-order'
+                                : 'find-users-canceled'
+                        }`,
                     {
                         headers: { token: `Bearer ${token}` },
                     },

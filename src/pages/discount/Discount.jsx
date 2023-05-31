@@ -1,17 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
 import './discount.css';
-import { Publish } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, useMemo, useEffect } from 'react';
-import axios from 'axios';
-import { BASE_URL_API } from '../../requestMethods';
+// import { Publish } from '@material-ui/icons';
+// import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { BASE_URL_API } from '../../requestMethods';
 import Code from '../../components/Code/Code';
 import OptionSelect from '../../components/optionSelect/OptionSelect';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 // import NewCode from '../../components/NewCode/NewCode';
 
-export default function Discount() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function Discount({ admin, dispatch, axiosJWT, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
     const location = useLocation();
     const discountId = location.pathname.split('/')[2];
@@ -19,8 +19,8 @@ export default function Discount() {
     // const [discount, setDiscount] = useState([]);
     const [inputs, setInputs] = useState({});
 
-    const dispatch = useDispatch();
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const dispatch = useDispatch();
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleChange = (e) => {
         const value = e.target.value;

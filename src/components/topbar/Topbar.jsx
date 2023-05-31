@@ -1,9 +1,18 @@
 import React from 'react';
 import './topbar.css';
 import { NotificationsNone, Language, Settings } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { logout } from '../../redux/apiCalls';
+// import { resetProduct } from '../../redux/productRedux';
+// import { resetUsers } from '../../redux/usersRedux';
 
-export default function Topbar() {
+export default function Topbar({ dispatch, id, accessToken, axiosJWT, BASE_URL_API }) {
+    const history = useHistory();
+
+    const handleLogout = async () => {
+        logout(dispatch, id, accessToken, axiosJWT, history, BASE_URL_API);
+    };
+
     return (
         <div className="topbar">
             <div className="topbarWrapper">
@@ -24,11 +33,17 @@ export default function Topbar() {
                     <div className="topbarIconContainer">
                         <Settings />
                     </div>
-                    <img
-                        src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                        alt=""
-                        className="topAvatar"
-                    />
+
+                    <div className="nav-img">
+                        <img
+                            src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                            alt=""
+                            className="topAvatar"
+                        />
+                        <div className="nav-menu" onClick={handleLogout}>
+                            Đăng xuất
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

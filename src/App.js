@@ -3,44 +3,40 @@ import Topbar from './components/topbar/Topbar';
 import './App.css';
 import './grid.css';
 import { Fragment } from 'react';
-import Home from './pages/home/Home';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useHistory,
-    Navigate,
-    // Redirect,
-} from 'react-router-dom';
-// import UserList from './pages/userList/UserList';
-// import User from './pages/user/User';
-// import NewUser from './pages/newUser/NewUser';
-// import ProductList from './pages/productList/ProductList';
-// import Product from './pages/product/Product';
-// import NewProduct from './pages/newProduct/NewProduct';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './pages/login/Login';
-import { useSelector } from 'react-redux';
-// import Order from './pages/order/Order';
+import { useDispatch, useSelector } from 'react-redux';
 import { publicRoutes } from './routes/publicRouter';
 import DefaultLayoutOrder from './Layout/DefaultLayoutOrder';
 import React from 'react';
+import { createAxiosInstance } from './useAxiosJWT';
+import { BASE_URL_API } from './requestMethods';
+import axios from 'axios';
 
 function App() {
-    // const isAdmin = useSelector((state) => state.user?.currentUser.isAdmin);
     const isAdmin = useSelector((state) => state.user?.currentUser);
-    console.log(isAdmin);
-    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const axiosJWT = createAxiosInstance(isAdmin, dispatch);
+
+    console.log('isAdmin', isAdmin);
 
     return (
         <Router>
             <Switch>
                 <>
                     <Route path="/login">
-                        <Login />
+                        <Login dispatch={dispatch} />
                     </Route>
                     {isAdmin && (
                         <Fragment>
-                            <Topbar />
+                            <Topbar
+                                dispatch={dispatch}
+                                id={isAdmin._id}
+                                accessToken={isAdmin.token}
+                                axiosJWT={axiosJWT}
+                                BASE_URL_API={BASE_URL_API}
+                            />
                             <div className="container-main">
                                 <div className="contont-app-frame">
                                     <div className="app-sidebar">
@@ -65,7 +61,13 @@ function App() {
                                                     path={route.path}
                                                 >
                                                     <Layout show1={route.show1}>
-                                                        <Page />
+                                                        <Page
+                                                            admin={isAdmin}
+                                                            axiosJWT={axiosJWT}
+                                                            dispatch={dispatch}
+                                                            BASE_URL_API={BASE_URL_API}
+                                                            axios={axios}
+                                                        />
                                                     </Layout>
                                                 </Route>
                                             );

@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 export const BASE_URL_API = 'http://localhost:5000/api/';
 

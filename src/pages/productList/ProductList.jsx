@@ -5,18 +5,18 @@ import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { deleteProduct, getProducts } from '../../redux/apiCalls';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function ProductList() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function ProductList({ admin, dispatch, axiosJWT }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
     console.log(token);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const products = useSelector((state) => state.product.products);
 
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     useEffect(() => {
         getProducts(dispatch, axiosJWT);

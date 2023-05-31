@@ -2,21 +2,21 @@ import { DataGrid } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
 import './orderList.css';
 import { DeleteOutline } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { BASE_URL_API } from '../../requestMethods';
-import { createAxiosInstance } from '../../useAxiosJWT';
+// import { BASE_URL_API } from '../../requestMethods';
+// import { createAxiosInstance } from '../../useAxiosJWT';
 
-export default function WaitForConfirmation() {
-    const admin = useSelector((state) => state.user?.currentUser);
+export default function WaitForConfirmation({ admin, dispatch, axiosJWT, BASE_URL_API }) {
+    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [show, setShow] = useState(false);
     const [orderList, setOrderList] = useState([]);
 
-    const axiosJWT = createAxiosInstance(admin, dispatch);
+    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     // data grid
     const columns = [

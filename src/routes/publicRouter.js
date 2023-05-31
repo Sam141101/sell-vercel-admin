@@ -1,5 +1,5 @@
 import Order from '../pages/order/Order';
-import DefaultLayoutOrder from '../Layout/DefaultLayoutOrder';
+// import DefaultLayoutOrder from '../Layout/DefaultLayoutOrder';
 import Home from '../pages/home/Home';
 import NewProduct from '../pages/newProduct/NewProduct';
 import UserList from '../pages/userList/UserList';
