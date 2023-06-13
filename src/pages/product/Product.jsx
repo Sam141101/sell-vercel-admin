@@ -155,12 +155,13 @@ export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
         const getStats = async () => {
             try {
                 const res = await axiosJWT.get(
-                    'http://localhost:5000/api/orders/income?pid=' + productId,
+                    'http://localhost:5000/api/orders/income-year?pid=' + productId,
                     {
                         headers: { token: `Bearer ${token}` },
                     },
                 );
 
+                console.log('product-sela', res.data);
                 const list = res.data.sort((a, b) => {
                     return a._id - b._id;
                 });
@@ -180,11 +181,12 @@ export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
     return (
         <div className="product">
             <div className="productTitleContainer">
-                <h1 className="productTitle">Product</h1>
+                <h1 className="productTitle">Sản phẩm</h1>
                 <Link to="/newproduct">
                     <button className="productAddButton">Tạo mới</button>
                 </Link>
             </div>
+
             <div className="productTop">
                 <div className="productTopRight">
                     <div className="product-top-right-frame">
@@ -230,7 +232,7 @@ export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
 
                 <div className="productTopLeft">
                     <div className="product-top-left-frame">
-                        <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
+                        <Chart data={pStats} dataKey="Sales" title="Hiệu suất sản phẩm" />
                     </div>
                 </div>
             </div>

@@ -6,7 +6,6 @@ import {
     logoutStart,
     logoutSuccess,
 } from './userRedux';
-// import { publicRequest, userRequest } from "../requestMethods";
 import {
     getProductFailure,
     getProductStart,

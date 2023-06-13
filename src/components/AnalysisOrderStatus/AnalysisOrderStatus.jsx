@@ -32,7 +32,7 @@ export default function AnalysisOrderStatus({ title, token, axiosJWT, BASE_URL_A
                         headers: { token: `Bearer ${token}` },
                     },
                 );
-                console.log(res.data);
+                console.log('res.datauuuuuuuuuuu', res.data);
                 setListUser(res.data);
             } catch (err) {
                 console.log(err);
@@ -50,62 +50,43 @@ export default function AnalysisOrderStatus({ title, token, axiosJWT, BASE_URL_A
                         : 'Danh sách huỷ đơn'}
                 </span>
                 <div className="analysis-status-container">
-                    {title === 'complete' ? (
-                        <div className="analysis-status-frame-title">
-                            <div className="analysis-status-info-user">Người dùng</div>
-                            <div className="analysis-status-info-user">Số lần mua</div>
-                        </div>
-                    ) : (
-                        <div className="analysis-status-frame-title">
-                            <div className="analysis-status-info-user">Người dùng</div>
-                            <div className="analysis-status-info-user">Số lần huỷ</div>
-                        </div>
-                    )}
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <th className="product-th th">Người dùng</th>
+                                <th className="th">Số lần</th>
+                            </tr>
 
-                    <ul className="analysis-status-list">
-                        {listUser?.map((item, index) => (
-                            <li className="analysis-status-item" key={item._id}>
-                                <div className="analysis-status-item-user">
-                                    <img
-                                        src={
-                                            item.img ||
-                                            'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg'
-                                        }
-                                        alt="lkk"
-                                        className="analysis-status-item-img"
-                                    />
-                                    <span className="analysis-status-item-title-name">
-                                        {item.username}
-                                    </span>
-                                </div>
-                                <div className="quanti-order">
-                                    {title === 'complete' ? (
-                                        <>
-                                            {item.firstTimeBuy}
-                                            {/* <Link
-                                                to={`/discount/${item._id}`}
-                                                className="analysis-status-item-gift"
-                                                // onClick={handleGift}
-                                            >
-                                                Tặng quà
-                                            </Link> */}
-                                        </>
-                                    ) : (
-                                        <>
-                                            {item.canceledOrder}
-                                            {/* <span
-                                                className="analysis-status-item-gift"
-                                                onClick={handleGift}
-                                            >
-                                                Giới hạn
-                                            </span> */}
-                                        </>
-                                    )}
-                                </div>
-                            </li>
-                        ))}
-                        <div className="line-frame"></div>
-                    </ul>
+                            {listUser.length !== 0 &&
+                                listUser.map((item, index) => (
+                                    <tr key={index}>
+                                        <td className="td">
+                                            <div className="analysis-status-item-user">
+                                                <img
+                                                    src={
+                                                        item.img ||
+                                                        'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg'
+                                                    }
+                                                    alt="lkk"
+                                                    className="analysis-status-item-img"
+                                                />
+                                                <span className="analysis-status-item-title-name">
+                                                    {item.username}
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td className="td analy">
+                                            {title === 'complete' ? (
+                                                <>{item.firstTimeBuy}</>
+                                            ) : (
+                                                <>{item.canceledOrder}</>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

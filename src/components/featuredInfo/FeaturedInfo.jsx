@@ -1,19 +1,10 @@
 import './featuredInfo.css';
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
-// import { userRequest } from "../../requestMethods";
-// import axios from 'axios';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function FeaturedInfo({ token, axiosJWT }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
-
     const [income, setIncome] = useState([]);
     const [percent, setPercent] = useState(0);
-
-    // const dispatch = useDispatch();
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     useEffect(() => {
         const getIncome = async () => {
@@ -27,9 +18,7 @@ export default function FeaturedInfo({ token, axiosJWT }) {
 
                 setIncome(res.data);
                 setPercent(
-                    (res.data[res.data.length - 1].total * 100) /
-                        res.data[res.data.length - 2].total -
-                        100,
+                    (res.data.this_month[0].total * 100) / res.data.last_month - 100,
                 );
             } catch (err) {}
         };
@@ -37,21 +26,21 @@ export default function FeaturedInfo({ token, axiosJWT }) {
         getIncome();
     }, [token]);
 
-    console.log(income);
+    console.log('income', income);
 
     return (
         <div className="featured">
             <div className="featuredItem">
-                <span className="featuredTitle">Tỉ lệ doanh thu tháng</span>
+                <span className="featuredTitle">
+                    Tổng doanh thu tháng {income.this_month && income.this_month[0].month}
+                </span>
                 <div className="featuredMoneyContainer">
-                    {/* <span className="featuredMoney">{income[1].total}đ</span> */}
                     <span className="featuredMoney">
-                        {income[income.length - 1]?.total}₫
+                        {income.this_month && income.this_month[0].total} ₫
                     </span>
 
-                    {/* <span className="featuredMoney">111đ</span> */}
                     <span className="featuredMoneyRate">
-                        {/* 111 */}%{Math.floor(percent)}
+                        %{Math.floor(percent)}
                         {percent < 0 ? (
                             <ArrowDownward className="featuredIcon negative" />
                         ) : (
@@ -59,29 +48,25 @@ export default function FeaturedInfo({ token, axiosJWT }) {
                         )}
                     </span>
                 </div>
-                <span className="featuredSub">So với tháng trước</span>
+                <span className="featuredSub">
+                    {percent > 0 ? 'Đạt chỉ tiêu' : 'Chưa đạt chỉ tiêu'} so với tháng
+                    trước
+                </span>
             </div>
 
-            {/* <div className="featuredItem">
-        <span className="featuredTitle">Sales</span>
-        <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$4,415</span>
-          <span className="featuredMoneyRate">
-            -1.4 <ArrowDownward className="featuredIcon negative" />
-          </span>
-        </div>
-        <span className="featuredSub">Compared to last month</span>
-      </div>
-      <div className="featuredItem">
-        <span className="featuredTitle">Cost</span>
-        <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$2,225</span>
-          <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon" />
-          </span>
-        </div>
-        <span className="featuredSub">Compared to last month</span>
-      </div> */}
+            <div className="featuredItem">
+                <span className="featuredTitle">Tổng doanh thu tháng trước</span>
+                <div className="featuredMoneyContainer">
+                    <span className="featuredMoney">{income?.last_month}₫</span>
+                </div>
+            </div>
+
+            <div className="featuredItem">
+                <span className="featuredTitle">Tổng doanh thu năm nay</span>
+                <div className="featuredMoneyContainer">
+                    <span className="featuredMoney">{income?.this_year}₫</span>
+                </div>
+            </div>
         </div>
     );
 }

@@ -1,26 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL_API } from '../requestMethods';
 
 export default function DefaultLayoutOrder({ children, show1 }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
-    // const token = admin.token;
-    // console.log(token);
-    // const dispatch = useDispatch();
-    // const products = useSelector((state) => state.product.products);
-
-    // useEffect(() => {
-    //     getProducts(dispatch);
-    // }, [dispatch]);
-
-    // const handleDelete = (id) => {
-    //     deleteProduct(id, dispatch, token);
-    // };
-
-    // const show1 = 1;
-
     const [inputs, setInputs] = useState({
         pending: 0,
         accept: 0,
@@ -32,7 +15,10 @@ export default function DefaultLayoutOrder({ children, show1 }) {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const res = await axios.get(BASE_URL_API + `orders/amount-order-status/`);
+                const res = await axios.get(
+                    BASE_URL_API +
+                        `orders/user-amount-order-status/63b4e6bff1828a3d371fa0ef/`,
+                );
 
                 setInputs({
                     pending: res.data.pending,

@@ -8,6 +8,7 @@ import { useMemo, useState, useEffect } from 'react';
 // import axios from 'axios';
 // import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../redux/apiCalls';
+import AnalysisOrderStatus from '../../components/AnalysisOrderStatus/AnalysisOrderStatus';
 // import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function Home({ admin, axiosJWT, dispatch, BASE_URL_API }) {
@@ -62,7 +63,7 @@ export default function Home({ admin, axiosJWT, dispatch, BASE_URL_API }) {
 
     return (
         <div className="home">
-            <FeaturedInfo token={token} axiosJWT={axiosJWT} />
+            {/* <FeaturedInfo token={token} axiosJWT={axiosJWT} />
             <div className="home-chart">
                 <Chart
                     data={userStats}
@@ -70,7 +71,8 @@ export default function Home({ admin, axiosJWT, dispatch, BASE_URL_API }) {
                     grid
                     dataKey="Active User"
                 />
-            </div>
+            </div> */}
+
             <div className="homeWidgets">
                 <WidgetSm
                     token={token}
@@ -83,6 +85,21 @@ export default function Home({ admin, axiosJWT, dispatch, BASE_URL_API }) {
                     // admin={admin}
                     axiosJWT={axiosJWT}
                     // dispatch={dispatch}
+                />
+            </div>
+
+            <div className="user-order-status">
+                <AnalysisOrderStatus
+                    title="complete"
+                    axiosJWT={axiosJWT}
+                    BASE_URL_API={BASE_URL_API}
+                    token={token}
+                />
+                <AnalysisOrderStatus
+                    title="cancel"
+                    axiosJWT={axiosJWT}
+                    BASE_URL_API={BASE_URL_API}
+                    token={token}
                 />
             </div>
         </div>

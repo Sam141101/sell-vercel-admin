@@ -3,8 +3,6 @@ import './topbar.css';
 import { NotificationsNone, Language, Settings } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/apiCalls';
-// import { resetProduct } from '../../redux/productRedux';
-// import { resetUsers } from '../../redux/usersRedux';
 
 export default function Topbar({ dispatch, id, accessToken, axiosJWT, BASE_URL_API }) {
     const history = useHistory();

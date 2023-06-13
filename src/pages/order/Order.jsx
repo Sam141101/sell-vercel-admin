@@ -1,11 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import './order.css';
-// import { Publish } from '@material-ui/icons';
-// import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { BASE_URL_API } from '../../requestMethods';
-// import { createAxiosInstance } from '../../useAxiosJWT';
 
 const buttonStatus = (status) => {
     let showText = '';
@@ -73,7 +68,11 @@ export default function Order({ admin, dispatch, axiosJWT, BASE_URL_API, axios }
         }
         // console.log('pick_shift', pick_shift);
         // console.log('statusOrder', statusOrder);
-        // console.log('infoOrderSend', infoOrderSend);
+        console.log(
+            'infoOrderSend',
+            infoOrderSend,
+            BASE_URL_API + `orders/find/order-${statusOrder}/` + infoOrder.user._id,
+        );
         try {
             const res = await axiosJWT.put(
                 BASE_URL_API + `orders/find/order-${statusOrder}/` + infoOrder.user._id,
@@ -99,7 +98,7 @@ export default function Order({ admin, dispatch, axiosJWT, BASE_URL_API, axios }
                     headers: { token: `Bearer ${token}` },
                 });
                 setInfoOrder(res.data);
-                // console.log(res.data);
+                console.log(res.data);
             } catch (err) {
                 console.log(err);
             }

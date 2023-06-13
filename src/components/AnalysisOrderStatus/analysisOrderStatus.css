@@ -10,14 +10,16 @@
 .analysis-status.cancel {
     margin-right: 0;
 }
-
+.td.analy {
+    width: 75px;
+}
 .analysis-status-frame {
 }
 
 .analysis-status-title {
     font-size: 22px;
     font-weight: 500;
-    padding: 15px 0;
+    padding-top: 15px;
     display: block;
 }
 
@@ -78,8 +80,8 @@
 
 .analysis-status-item-user {
     display: flex;
+    padding: 5px 0;
     margin-left: 15px;
-    min-width: 180px;
     align-items: center;
 }
 

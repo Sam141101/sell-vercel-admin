@@ -81,7 +81,7 @@ export default function Sidebar() {
                                 Sản phẩm
                             </li>
                         </Link>
-                        <Link to="/" className="link">
+                        {/* <Link to="/" className="link">
                             <li
                                 className={`sidebarListItem ${
                                     select === 'translate' ? 'active' : ''
@@ -90,7 +90,7 @@ export default function Sidebar() {
                                 <AttachMoney className="sidebarIcon" />
                                 Giao dịch
                             </li>
-                        </Link>
+                        </Link> */}
 
                         <Link to="/order/wait-for-confirmation" className="link">
                             <li
