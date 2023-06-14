@@ -4,7 +4,6 @@ import {
     Timeline,
     PermIdentity,
     Storefront,
-    AttachMoney,
     MailOutline,
     DynamicFeed,
     ChatBubbleOutline,
@@ -81,16 +80,6 @@ export default function Sidebar() {
                                 Sản phẩm
                             </li>
                         </Link>
-                        {/* <Link to="/" className="link">
-                            <li
-                                className={`sidebarListItem ${
-                                    select === 'translate' ? 'active' : ''
-                                }`}
-                            >
-                                <AttachMoney className="sidebarIcon" />
-                                Giao dịch
-                            </li>
-                        </Link> */}
 
                         <Link to="/order/wait-for-confirmation" className="link">
                             <li

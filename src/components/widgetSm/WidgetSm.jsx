@@ -1,28 +1,18 @@
 import './widgetSm.css';
 import { Visibility } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
-// import { userRequest } from "../../requestMethods";
-// import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import { createAxiosInstance } from '../../useAxiosJWT';
-// import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL_API } from '../../requestMethods';
 
 export default function WidgetSm({ token, axiosJWT }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
-
-    // const dispatch = useDispatch();
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const res = await axiosJWT.get(
-                    'http://localhost:5000/api/users?new=true',
-                    {
-                        headers: { token: `Bearer ${token}` },
-                    },
-                );
+                const res = await axiosJWT.get(BASE_URL_API + 'users?new=true', {
+                    headers: { token: `Bearer ${token}` },
+                });
                 setUsers(res.data);
             } catch (err) {}
         };

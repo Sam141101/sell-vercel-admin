@@ -1,22 +1,8 @@
 import './analysisOrderStatus.css';
-// import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
-// import { userRequest } from "../../requestMethods";
-// import axios from 'axios';
-// import { Link } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function AnalysisOrderStatus({ title, token, axiosJWT, BASE_URL_API }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
-    console.log('bass', BASE_URL_API);
-
     const [listUser, setListUser] = useState([]);
-
-    // const dispatch = useDispatch();
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
-
-    // const handleGift = async () => {};
 
     useEffect(() => {
         const getIncome = async () => {

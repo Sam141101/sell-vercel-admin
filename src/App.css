@@ -21,7 +21,6 @@
 .order {
     margin-top: 25px;
     width: 100%;
-    /* margin-right: 20px; */
 }
 
 .amount-order {
@@ -45,29 +44,6 @@
     width: 80%;
     margin: 20px 0;
 }
-
-/* .default-layout-order-manage-user {
-    display: flex;
-    padding: 10px 20px;
-    background: #ccc;
-    width: max-content;
-    border-radius: 3px;
-}
-
-.default-layout-order-select-link {
-    background-color: #eeeeee;
-    cursor: pointer;
-    padding: 10px 20px;
-    margin-right: 20px;
-    min-width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-} */
 
 .default-layout-frame-block {
     margin-top: 15px;

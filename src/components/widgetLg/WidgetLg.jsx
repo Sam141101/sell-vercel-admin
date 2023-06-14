@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react';
 import './widgetLg.css';
 import { format } from 'timeago.js';
-// import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { createAxiosInstance } from '../../useAxiosJWT';
+import { BASE_URL_API } from '../../requestMethods';
 
 export default function WidgetLg({ token, axiosJWT }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
-
-    // const dispatch = useDispatch();
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
-
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         const getOrders = async () => {
             try {
-                const res = await axiosJWT.get('http://localhost:5000/api/orders', {
+                const res = await axiosJWT.get(BASE_URL_API + 'orders', {
                     headers: { token: `Bearer ${token}` },
                 });
                 setOrders(res.data);

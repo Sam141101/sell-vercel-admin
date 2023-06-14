@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import './optionSelect.css';
 
 export default function OptionSelect(props) {

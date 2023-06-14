@@ -12,21 +12,15 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './user.css';
-
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-
 import app from '../../firebase';
 import { updateUser } from '../../redux/apiCalls';
-// import { createAxiosInstance } from '../../useAxiosJWT';
 import axios from 'axios';
-// import { BASE_URL_API } from '../../requestMethods';
 
 export default function User({ admin, axiosJWT, dispatch, BASE_URL_API }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
     const location = useLocation();
     const userId = location.pathname.split('/')[2];
-    // const [pStats, setPStats] = useState([]);
     const user = useSelector((state) =>
         state.users.users.find((user) => user._id === userId),
     );
@@ -34,9 +28,6 @@ export default function User({ admin, axiosJWT, dispatch, BASE_URL_API }) {
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
     const [address, setAddress] = useState({});
-    // const dispatch = useDispatch();
-
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleChange = (e) => {
         setInputs((prev) => {

@@ -3,18 +3,11 @@ import './newProduct.css';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import app from '../../firebase';
 import { addProduct } from '../../redux/apiCalls';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function NewProduct({ admin, axiosJWT, dispatch }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
-
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
-    // const dispatch = useDispatch();
-
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleChange = (e) => {
         setInputs((prev) => {

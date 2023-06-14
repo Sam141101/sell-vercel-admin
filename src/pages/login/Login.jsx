@@ -1,18 +1,12 @@
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import { login } from '../../redux/apiCalls';
-// import { useNavigate } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import './login.css';
 
 const Login = ({ dispatch }) => {
-    // console.log('dispatch', dispatch);
-    // console.log('history', history);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // const dispatch = useDispatch();
 
-    // const navigate = useNavigate();
     const history = useHistory();
 
     const handleClick = (e) => {

@@ -9,18 +9,11 @@ import axios from 'axios';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import app from '../../firebase';
 import { updateProduct } from '../../redux/apiCalls';
-// import { createAxiosInstance } from '../../useAxiosJWT';
-// import { BASE_URL_API } from '../../requestMethods';
 
 export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
-
-    // const dispatch = useDispatch();
     const location = useLocation();
     const productId = location.pathname.split('/')[2];
-
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const product = useSelector((state) =>
         state.product.products.find((product) => product._id === productId),
@@ -155,7 +148,7 @@ export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
         const getStats = async () => {
             try {
                 const res = await axiosJWT.get(
-                    'http://localhost:5000/api/orders/income-year?pid=' + productId,
+                    BASE_URL_API + 'api/orders/income-year?pid=' + productId,
                     {
                         headers: { token: `Bearer ${token}` },
                     },
@@ -315,12 +308,10 @@ export default function Product({ admin, dispatch, axiosJWT, BASE_URL_API }) {
                     <div className="productFormRight">
                         <div className="productUpload">
                             <img src={product.img} alt="" className="productUploadImg" />
-                            {/* <label for="file"> */}
                             <label htmlFor="file">
                                 <Publish />
                             </label>
                             <input
-                                // className="user-profile-button-select-img"
                                 type="file"
                                 id="file"
                                 multiple

@@ -1,19 +1,12 @@
 import Chart from '../../components/chart/Chart';
 import './analysis.css';
 import { useMemo, useState, useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
 import AnalysisOrderStatus from '../../components/AnalysisOrderStatus/AnalysisOrderStatus';
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
-// import { createAxiosInstance } from '../../useAxiosJWT';
 
 export default function Analysis({ admin, dispatch, axiosJWT, BASE_URL_API, axios }) {
-    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
-
     const [userStats, setUserStats] = useState([]);
-
-    // const dispatch = useDispatch();
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const MONTHS = useMemo(
         () => [
@@ -36,7 +29,7 @@ export default function Analysis({ admin, dispatch, axiosJWT, BASE_URL_API, axio
     useEffect(() => {
         const getStats = async () => {
             try {
-                const res = await axiosJWT.get('http://localhost:5000/api/orders/stats', {
+                const res = await axiosJWT.get(BASE_URL_API + 'orders/stats', {
                     headers: { token: `Bearer ${token}` },
                 });
 
@@ -55,12 +48,9 @@ export default function Analysis({ admin, dispatch, axiosJWT, BASE_URL_API, axio
     useEffect(() => {
         const getStats = async () => {
             try {
-                const res = await axiosJWT.get(
-                    'http://localhost:5000/api/orders/income-year',
-                    {
-                        headers: { token: `Bearer ${token}` },
-                    },
-                );
+                const res = await axiosJWT.get(BASE_URL_API + 'orders/income-year', {
+                    headers: { token: `Bearer ${token}` },
+                });
 
                 console.log('amoutn-tôtla-month', res.data);
                 res.data.map((item) =>

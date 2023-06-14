@@ -1,6 +1,7 @@
 import './featuredInfo.css';
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
+import { BASE_URL_API } from '../../requestMethods';
 
 export default function FeaturedInfo({ token, axiosJWT }) {
     const [income, setIncome] = useState([]);
@@ -10,7 +11,8 @@ export default function FeaturedInfo({ token, axiosJWT }) {
         const getIncome = async () => {
             try {
                 const res = await axiosJWT.get(
-                    'http://localhost:5000/api/orders/income',
+                    BASE_URL_API + 'orders/income',
+                    // 'http://localhost:5000/api/orders/income',
                     {
                         headers: { token: `Bearer ${token}` },
                     },

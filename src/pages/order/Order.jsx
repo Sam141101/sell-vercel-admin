@@ -23,20 +23,13 @@ const buttonStatus = (status) => {
 export default function Order({ admin, dispatch, axiosJWT, BASE_URL_API, axios }) {
     const location = useLocation();
     const orderId = location.pathname.split('/')[3];
-    // const admin = useSelector((state) => state.user?.currentUser);
     const token = admin.token;
-
-    // let userid;
-
-    // const dispatch = useDispatch();
 
     const [address, setAddress] = useState({});
     const [infoOrder, setInfoOrder] = useState({});
     const [deliveryTime, setDeliveryTime] = useState([]);
     const [pickShift, setPickShift] = useState('');
     console.log('pickShift', pickShift, typeof pickShift);
-
-    // const axiosJWT = createAxiosInstance(admin, dispatch);
 
     const handleClick = async (status) => {
         // console.log('statues', status);
