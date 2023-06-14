@@ -16,8 +16,7 @@ export default function DefaultLayoutOrder({ children, show1 }) {
         const getProduct = async () => {
             try {
                 const res = await axios.get(
-                    BASE_URL_API +
-                        `orders/user-amount-order-status/63b4e6bff1828a3d371fa0ef/`,
+                    BASE_URL_API + `orders/user-amount-order-status/`,
                 );
 
                 setInputs({
